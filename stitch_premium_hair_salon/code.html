@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ФАКТУРА | Студия красоты Санкт-Петербург</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#fdfcf0', // Soft warm light/champagne
+            graphite: '#1a1a1a', // Deep graphite gray
+            matte: '#121212', // Matte black
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            'custom': '2px', // More architectural, sharper but slightly rounded
+          },
+          boxShadow: {
+            'soft': '0 10px 40px -10px rgba(0,0,0,0.5)',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-animations">
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fadeInUp 0.8s ease forwards; }
+    .parallax-bg { background-attachment: fixed; background-size: cover; background-position: center; }
+    .text-outline { -webkit-text-stroke: 1px rgba(255,255,255,0.2); color: transparent; }
+    .masonry-item:hover img { transform: scale(1.03); transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; animation: fadeInUp 0.4s ease; }
+    
+    /* Reveal Animation Styles */
+    .reveal-header, .reveal-item {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1.2s cubic-bezier(0.215, 0.61, 0.355, 1), transform 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-header.visible, .reveal-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .reveal-item {
+      transition-duration: 1s;
+    }
+
+    /* Subtle concrete texture overlay */
+    .concrete-bg {
+      position: relative;
+    }
+    .concrete-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      z-index: 1;
+    }
+    
+    .glass-nav {
+      backdrop-filter: blur(12px);
+      background-color: rgba(18, 18, 18, 0.7);
+    }
+  </style>
+</head>
+<body class="bg-graphite text-white font-sans selection:bg-brand selection:text-black concrete-bg">
+<!-- BEGIN: Navigation -->
+<nav class="fixed top-0 w-full z-50 px-8 py-6 flex justify-between items-center glass-nav border-b border-white/5">
+<div class="text-xl font-black tracking-tighter">ФАКТУРА</div>
+<div class="hidden md:flex space-x-12 text-[10px] uppercase tracking-[0.3em] font-medium opacity-70">
+<a class="hover:text-brand hover:opacity-100 transition-all" href="#about">О нас</a>
+<a class="hover:text-brand hover:opacity-100 transition-all" href="#services">Услуги</a>
+<a class="hover:text-brand hover:opacity-100 transition-all" href="#masters">Мастера</a>
+<a class="hover:text-brand hover:opacity-100 transition-all" href="#contacts">Контакты</a>
+</div>
+<a class="px-5 py-2 border border-white/10 hover:border-brand/30 hover:bg-brand hover:text-black transition-all text-[10px] uppercase tracking-[0.2em] rounded-custom" href="#booking">
+    Записаться
+  </a>
+</nav>
+<!-- END: Navigation -->
+<!-- BEGIN: HeroSection -->
+<section class="relative h-screen flex items-center justify-center overflow-hidden bg-matte">
+<div class="absolute inset-0 z-0 parallax-bg opacity-40 mix-blend-luminosity" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAO5GHWszfatYgaIdnp81XvQFUNzD8YdCaB73VV7ZobC78rLBk0lgL98jggV_dJ94X_6n8LHU3KyMbItZ5t0HlGlmXkQGUDZav-yA4eAc7F0JItAJSIHcCqowx321Ktjgk9xG1AVxLhorRAggkJq4GzqJtCsVkBTJu2ElEsKQ4hHgeckXB6HqIsohxQCGwevmOT4NDfuMdg4UD8x5Oz5n0GfF91sVH1INOJ1WO5kvIZj7uvNF7IAHh1So83h8xS5pAdYXpECQfeZJ4');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-graphite via-transparent to-matte/60 z-10"></div>
+<div class="relative z-20 text-center px-4">
+<h1 class="text-[12vw] md:text-[8vw] font-black leading-none tracking-tighter mb-6 reveal-header">
+      ФОРМА. СТИЛЬ.<br/>
+<span class="text-outline hover:text-brand transition-all duration-1000">ФАКТУРА.</span>
+</h1>
+<p class="text-[10px] md:text-xs uppercase tracking-[0.6em] opacity-40 mb-16 animate-fade-in" style="animation-delay: 0.2s;">Премиальная студия в сердце Петербурга</p>
+<div class="animate-fade-in" style="animation-delay: 0.4s;">
+<a class="bg-brand text-black px-14 py-5 text-[11px] font-bold uppercase tracking-[0.2em] hover:shadow-[0_0_30px_rgba(253,252,240,0.3)] transition-all inline-block rounded-custom" href="#booking">
+        Стать гостем
+      </a>
+</div>
+</div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: AboutSection -->
+<section class="py-40 px-8 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-24 relative z-10" id="about">
+<div class="md:w-1/2" data-purpose="philosophy-text">
+<span class="text-brand/50 uppercase tracking-[0.4em] text-[10px] mb-8 block font-semibold">— Философия</span>
+<h2 class="text-4xl md:text-5xl font-bold mb-10 leading-[1.1] tracking-tight text-brand reveal-header">Ваш стиль как произведение искусства.</h2>
+<p class="text-white/40 text-lg leading-relaxed mb-10 max-w-md font-light">
+      Мы не просто стрижем. Мы создаем архитектуру вашего образа, подчеркивая естественную эстетику и внутреннюю свободу. Ничего лишнего. Только безупречная форма.
+    </p>
+<div class="h-px w-20 bg-white/10"></div>
+</div>
+<div class="md:w-1/2 relative">
+<div class="absolute -inset-4 bg-brand/5 blur-3xl rounded-full"></div>
+<img alt="Salon Interior" class="relative w-full h-[650px] object-cover grayscale opacity-90 hover:opacity-100 hover:grayscale-0 transition-all duration-1000 rounded-custom shadow-soft" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZQQ5O_QQa_mXVXFZx6Kvd1Xd_VLhkwdcuJxKPzJvqZwpGWh6xQu3U1yS7Y_vs0VQ4aiukGM4GlpCvfViJZ8028ffjjNyxZ_vRRQmPRVPtx5UY-Pp0XifL8SKHxYbLxbmAz6AKxHbirbPCUML6gC2DEo1xdcUwOk-CfnA1YNy4yMiMMpeT0sZ_Rp0JOFNb3OFL5MeeS4mtA7vHCK_6RFK1RQywyVN-GyUiLiIJL4WJHQJSjwLcXCrKhTR0MHeKm3raj_k6SRtHiv0"/>
+</div>
+</section>
+<!-- END: AboutSection -->
+<!-- BEGIN: ServicesSection -->
+<section class="py-40 bg-matte/50 border-y border-white/5" id="services">
+<div class="max-w-7xl mx-auto px-8">
+<div class="flex flex-col md:flex-row justify-between items-baseline mb-24 gap-4">
+<h2 class="text-6xl md:text-8xl font-black tracking-tighter opacity-10 reveal-header">SERVICES</h2>
+<p class="text-brand/40 uppercase tracking-[0.4em] text-[10px] font-bold">Price List 24/25</p>
+</div>
+<div class="grid md:grid-cols-2 gap-x-32 gap-y-20">
+<!-- Service Category 1 -->
+<div data-purpose="service-category">
+<h3 class="text-xs font-bold tracking-[0.3em] uppercase border-b border-white/5 pb-6 mb-10 text-brand/80">Haircut &amp; Styling</h3>
+<div class="space-y-10">
+<div class="flex justify-between items-baseline group cursor-default reveal-item">
+<div>
+<h4 class="text-lg font-light group-hover:text-brand transition-colors">Стрижка (Топ-стилист)</h4>
+<p class="text-[10px] uppercase tracking-widest text-white/20 mt-2">Включает мытье и укладку</p>
+</div>
+<span class="font-mono text-lg text-brand/60">5 500 ₽</span>
+</div>
+<div class="flex justify-between items-baseline group cursor-default reveal-item">
+<div>
+<h4 class="text-lg font-light group-hover:text-brand transition-colors">Вечерний образ</h4>
+<p class="text-[10px] uppercase tracking-widest text-white/20 mt-2">Сложная укладка и макияж</p>
+</div>
+<span class="font-mono text-lg text-brand/60">8 000 ₽</span>
+</div>
+</div>
+</div>
+<!-- Service Category 2 -->
+<div data-purpose="service-category">
+<h3 class="text-xs font-bold tracking-[0.3em] uppercase border-b border-white/5 pb-6 mb-10 text-brand/80">Coloring</h3>
+<div class="space-y-10">
+<div class="flex justify-between items-baseline group cursor-default reveal-item">
+<div>
+<h4 class="text-lg font-light group-hover:text-brand transition-colors">Shatush / Balayage</h4>
+<p class="text-[10px] uppercase tracking-widest text-white/20 mt-2">Сложное окрашивание</p>
+</div>
+<span class="font-mono text-lg text-white/30">от 12 000 ₽</span>
+</div>
+<div class="flex justify-between items-baseline group cursor-default reveal-item">
+<div>
+<h4 class="text-lg font-light group-hover:text-brand transition-colors">Total Blonde</h4>
+<p class="text-[10px] uppercase tracking-widest text-white/20 mt-2">Радикальное преображение</p>
+</div>
+<span class="font-mono text-lg text-white/30">от 15 000 ₽</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: ServicesSection -->
+<!-- BEGIN: MastersSection -->
+<section class="py-40 px-8 max-w-7xl mx-auto" id="masters">
+<div class="text-center mb-24">
+<h2 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 reveal-header">MASTERS</h2>
+<div class="h-px w-12 bg-brand/30 mx-auto"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+<!-- Master 1 -->
+<div class="group cursor-pointer reveal-item">
+<div class="overflow-hidden mb-8 rounded-custom bg-matte aspect-[3/4]">
+<img alt="Alex" class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUMjsDwQ9tFXQIBpR0QK-HRY6jd2hGh6p8h6tAC0WTMfs_IFbwnBwH96vKTZb8TtVwpbmNUYAw_HqgcGGmDdxVDwGyAFOxEkxMtIaMidvl5jsZirtvWOPER8XbkdNbCA6dNCu64qUXwAhzM8l7Ya0SMgbOoxn5m5RGozi1u0-3lpXoIoKtoKE0GrjkhQyt_56fl9GwPduK9bp9tf_I8ZX0kznakjYi2tLd6p5e-G81ECiePYXLpLeouV3kVrSO9u3curz4vYkWut8"/>
+</div>
+<h3 class="text-xl font-bold tracking-tight mb-2">АЛЕКСАНДР В.</h3>
+<p class="text-brand/40 text-[9px] uppercase tracking-[0.4em] font-bold">Art Director / Top Stylist</p>
+</div>
+<!-- Master 2 -->
+<div class="group cursor-pointer reveal-item" style="transition-delay: 0.1s;">
+<div class="overflow-hidden mb-8 rounded-custom bg-matte aspect-[3/4]">
+<img alt="Elena" class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmzGdO-A6gXB8M4Q45kC2WErEgyOWjacVjkLiBsfyQlB5HijvmB3iRRznuZyWqGoy0K3fabgFxoWZ2Gv2_6WPPM_ctwT60lo3MBulMIwjObFdYEZgaWF2Wu5u1Q5MVqWQCzXCER-o5xArJvMH8GMqjlC-SwTcovQb4ps6jxKxiXq6GEt6Yv3kTNGfB3cFSq0v9jFGMjXYWeGmLI06uD1G0w6NeqXCrcRXUUa3FSE4hB-tQd7gBrL8jxL8h8WXyFQHvMWVE-bizYwk"/>
+</div>
+<h3 class="text-xl font-bold tracking-tight mb-2">ЕЛЕНА М.</h3>
+<p class="text-brand/40 text-[9px] uppercase tracking-[0.4em] font-bold">Senior Colorist</p>
+</div>
+<!-- Master 3 -->
+<div class="group cursor-pointer reveal-item" style="transition-delay: 0.2s;">
+<div class="overflow-hidden mb-8 rounded-custom bg-matte aspect-[3/4]">
+<img alt="Mark" class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnM2AWvm4qNt2k5096dNgP_674MAnQoTAZ3kH2cECMXc54MY3ryDW3OfMLrafb23-1Q7QnQMFRmKoyE2MkWbeUbUsPuUChKSfhSPbGfGCqxL9zVIDqB6YcnP5b3i1-6zZwp3jzWZoF2vERx8du_IiZRoj-BUB0yxphmi-l4b9Qdvb-XAIZnwMbA90xQWoCPoYOjKTfuE4Yu8JrtLfJgIOuTbiKw_7LvDAysLqZ3YsqPEWSJc8V7gzVwYCdgUI0c8kdxltT8qwT3WM"/>
+</div>
+<h3 class="text-xl font-bold tracking-tight mb-2">МАРК С.</h3>
+<p class="text-brand/40 text-[9px] uppercase tracking-[0.4em] font-bold">Barber Specialist</p>
+</div>
+</div>
+</section>
+<!-- END: MastersSection -->
+<!-- BEGIN: QuizSection -->
+<section class="py-40 bg-brand text-matte relative overflow-hidden">
+<div class="absolute top-0 right-0 w-96 h-96 bg-white/30 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
+<div class="max-w-3xl mx-auto px-8 text-center relative z-10">
+<h2 class="text-4xl font-black mb-4 uppercase tracking-tighter reveal-header">Подбери свой стиль</h2>
+<p class="text-matte/40 mb-16 uppercase tracking-[0.4em] text-[10px] font-bold">Всего за 30 секунд</p>
+<div class="bg-white/40 backdrop-blur-md p-12 border border-white/20 rounded-custom shadow-soft reveal-item" id="quiz-container">
+<!-- Step 1 -->
+<div class="quiz-step active" data-step="1">
+<h4 class="text-xl mb-10 font-medium">Какая длина волос сейчас?</h4>
+<div class="grid grid-cols-2 gap-6">
+<button class="py-5 border border-matte/10 hover:border-matte hover:bg-matte hover:text-white transition-all rounded-custom uppercase text-[10px] tracking-widest font-bold" onclick="nextStep(1)">Короткие</button>
+<button class="py-5 border border-matte/10 hover:border-matte hover:bg-matte hover:text-white transition-all rounded-custom uppercase text-[10px] tracking-widest font-bold" onclick="nextStep(1)">Средние / Длинные</button>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="quiz-step" data-step="2">
+<h4 class="text-xl mb-10 font-medium">Ваш предпочтительный образ?</h4>
+<div class="grid grid-cols-2 gap-6">
+<button class="py-5 border border-matte/10 hover:border-matte hover:bg-matte hover:text-white transition-all rounded-custom uppercase text-[10px] tracking-widest font-bold" onclick="nextStep(2)">Классика</button>
+<button class="py-5 border border-matte/10 hover:border-matte hover:bg-matte hover:text-white transition-all rounded-custom uppercase text-[10px] tracking-widest font-bold" onclick="nextStep(2)">Авангард / Тренд</button>
+</div>
+</div>
+<!-- Result -->
+<div class="quiz-step text-center" data-step="3">
+<div class="text-matte/20 text-6xl mb-6">✧</div>
+<h4 class="text-2xl font-black mb-4 uppercase tracking-tighter">Идеально!</h4>
+<p class="mb-10 text-matte/60 font-light">Вам подойдет наш Топ-стилист Александр для создания архитектурного образа.</p>
+<a class="inline-block bg-matte text-white px-10 py-5 uppercase text-[10px] font-bold tracking-[0.3em] rounded-custom hover:opacity-90 transition-opacity" href="#booking">Записаться на консультацию</a>
+</div>
+</div>
+</div>
+</section>
+<!-- END: QuizSection -->
+<!-- BEGIN: CalculatorSection -->
+<section class="py-40 bg-graphite relative">
+<div class="max-w-5xl mx-auto px-8">
+<div class="text-center mb-20">
+<h2 class="text-3xl font-bold uppercase tracking-[0.2em] mb-6 reveal-header">Калькулятор услуг</h2>
+<div class="h-px w-24 bg-brand/20 mx-auto"></div>
+</div>
+<div class="relative flex items-center">
+<!-- Left Vertical Label -->
+<div class="absolute -left-16 hidden lg:block">
+<span class="text-[9px] uppercase tracking-[0.8em] text-white/20 font-bold whitespace-nowrap block origin-center -rotate-90 select-none">
+      ESTIMATE
+    </span>
+</div>
+<!-- Calculator Grid Container -->
+<div class="grid md:grid-cols-2 gap-0 bg-matte rounded-custom overflow-hidden border border-white/5 shadow-soft w-full reveal-item">
+<div class="p-12 space-y-10">
+<div>
+<label class="block text-[9px] uppercase tracking-[0.4em] mb-4 text-white/30 font-bold">Тип услуги</label>
+<select class="w-full bg-graphite/50 border border-white/5 text-white/80 p-4 focus:ring-1 focus:ring-brand/30 focus:border-brand/30 rounded-custom transition-all text-sm outline-none" id="calc-service" onchange="calculatePrice()">
+<option value="5000">Стрижка</option>
+<option value="12000">Окрашивание</option>
+<option value="3000">Уход / Терапия</option>
+</select>
+</div>
+<div>
+<label class="block text-[9px] uppercase tracking-[0.4em] mb-4 text-white/30 font-bold">Длина волос</label>
+<div class="flex gap-4">
+<label class="flex-1 text-center py-4 border border-white/5 cursor-pointer hover:bg-white/[0.02] rounded-custom has-[:checked]:border-brand/40 has-[:checked]:text-brand text-xs transition-all uppercase tracking-widest opacity-60 has-[:checked]:opacity-100">
+<input checked="" class="hidden" name="length" onchange="calculatePrice()" type="radio" value="1"/> Короткие
+          </label>
+<label class="flex-1 text-center py-4 border border-white/5 cursor-pointer hover:bg-white/[0.02] rounded-custom has-[:checked]:border-brand/40 has-[:checked]:text-brand text-xs transition-all uppercase tracking-widest opacity-60 has-[:checked]:opacity-100">
+<input class="hidden" name="length" onchange="calculatePrice()" type="radio" value="1.3"/> Средние
+          </label>
+</div>
+</div>
+<div>
+<label class="block text-[9px] uppercase tracking-[0.4em] mb-4 text-white/30 font-bold">Уровень мастера</label>
+<select class="w-full bg-graphite/50 border border-white/5 text-white/80 p-4 focus:ring-1 focus:ring-brand/30 focus:border-brand/30 rounded-custom transition-all text-sm outline-none" id="calc-master" onchange="calculatePrice()">
+<option value="1">Стилист</option>
+<option value="1.5">Топ-стилист</option>
+<option value="2">Арт-директор</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col justify-center items-center bg-graphite/30 p-12 border-l border-white/5">
+<p class="text-[9px] uppercase tracking-[0.4em] text-white/30 mb-4 font-bold">Предварительная стоимость</p>
+<div class="text-6xl font-black text-brand mb-10 tracking-tighter" id="calc-result">5 000 ₽</div>
+<p class="text-center text-[10px] text-white/20 italic tracking-wider leading-relaxed">*Точная стоимость определяется мастером после очной консультации</p>
+</div>
+</div>
+<!-- Right Vertical Label -->
+<div class="absolute -right-16 hidden lg:block">
+<span class="text-[9px] uppercase tracking-[0.8em] text-white/20 font-bold whitespace-nowrap block origin-center rotate-90 select-none">
+      TRANSPARENCY
+    </span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: CalculatorSection -->
+<!-- BEGIN: GallerySection -->
+<section class="py-40 px-4 bg-graphite">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-[1600px] mx-auto">
+<div class="masonry-item overflow-hidden h-[450px] rounded-custom bg-matte reveal-item">
+<img class="w-full h-full object-cover grayscale opacity-70 hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDi-tahISi0oQtBenHZONegeasUZI6sZQVLuaxJqgMYImbyphEshdp_A22S2E9cx6GxqqfEvfuBW9hzlKNqQBd7BHPUOTK7BHJ6us7gkF84v1kBjZQLjJFTCG_OF0pYRlcC4Ii4gpTr-PXCI4Ygc4HNTdS32ZC4oabOnG8pwzmQ2yhuXoNKKqQBUvQZN-F_hTERp5Zo-CaFp-Nde4_i7bujkaksJH4SQXRpFpp2GB-qfRhpXV72vHe-2u6pZV2pb6meJwklFY5yAkM"/>
+</div>
+<div class="masonry-item overflow-hidden h-[650px] md:-mt-20 rounded-custom bg-matte shadow-soft reveal-item" style="transition-delay: 0.1s;">
+<img class="w-full h-full object-cover grayscale opacity-70 hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpA74SCBOUnaD5SQ1loqEJDabW1oTk9Cs9DksPq1x8aBCaNSiriDeClvdB0xeUM7d2y3_vaEZHkxzHBSyBs6wfBtF9BIpmIkvXHVovkUITsDySiIk_r8D7vvHh-fsnbNcPMquf6Dt3_kO-JRXuGX4GT2AWHp60s3he8LcQxY3OWKxSiLK9abaJReiro1rj6guh0uKbWceeTy7qa5U9xxfSWjdSY1GKxQcOShvNbT0iAs6m3RstZZPfYEHKAyTFYR5mFRdZ7C6NVrM"/>
+</div>
+<div class="masonry-item overflow-hidden h-[500px] rounded-custom bg-matte reveal-item" style="transition-delay: 0.2s;">
+<img class="w-full h-full object-cover grayscale opacity-70 hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmWPYratX9IvImf-OGN3jx8MLuc-59EIAepRHh3RHy8P_p6-aTa36G8xtgmsoVJHpMRc7M1VMMtXtqN1GZ1_MN3R0HGWC2EZd_Jkp1-Zemqu1yZ9iVA1xqcD5hLtgE5gh6p3mF3b-c1SnIpHcoL4uZWSOBo-aZsD3of3dFCWs1qcKzLogA8vhbPh6_-OSO1D5MmzRHziqts7OTG-m_f1CSIacEVwaqENQHc2YoztP4Kv-fPp00lPua2zGPmnTxYR2zwyI7LtNv9Tc"/>
+</div>
+<div class="masonry-item overflow-hidden h-[600px] md:-mt-10 rounded-custom bg-matte reveal-item" style="transition-delay: 0.3s;">
+<img class="w-full h-full object-cover grayscale opacity-70 hover:opacity-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCN2rbSc-jJ8bcdy0SBw5JEaJTAHB1batH3eqUN-uhuPAuZ-LnECjAIA0Q_DLZjpYw_uCqiYuVjlzBoWm5lnXcqCno6jxthnjamYOLtv5n0DzYkuPxB-MqaUWAC53amxEdiwKanp_r8Big2XNx2g6kOpDBfnWyUgBtE-7EVbHEmKmTL2MzKMFidX5J7zpIxbe7-LWuE_2XA88ZAdc6YnNpKLAp1t6zWbt-JuAsAg2XGxKdxwdbVf8HXOZnig-8yfBCV9gpq10_v1J0"/>
+</div>
+</div>
+</section>
+<!-- END: GallerySection -->
+<!-- BEGIN: BookingSection -->
+<section class="py-40 bg-graphite border-t border-white/5" id="booking">
+<div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-24 items-center">
+<div>
+<h2 class="text-7xl md:text-9xl font-black mb-12 leading-none tracking-tighter text-brand/10 reveal-header">GET<br/>LOOK</h2>
+<p class="text-xl font-light max-w-sm mb-12 text-white/60 reveal-item">Оставьте контакты, и наш администратор свяжется с вами для подбора времени.</p>
+<div class="space-y-6">
+<div class="flex items-center gap-6 reveal-item" style="transition-delay: 0.1s;">
+<span class="w-16 h-px bg-brand/20"></span>
+<span class="text-xs uppercase tracking-[0.3em] font-medium opacity-80">ул. Большая Морская, 20</span>
+</div>
+<div class="flex items-center gap-6 reveal-item" style="transition-delay: 0.2s;">
+<span class="w-16 h-px bg-brand/20"></span>
+<span class="text-xs uppercase tracking-[0.3em] font-medium opacity-80">+7 (812) 000-00-00</span>
+</div>
+</div>
+</div>
+<form class="space-y-8 bg-matte p-14 rounded-custom border border-white/5 shadow-soft relative overflow-hidden reveal-item">
+<div class="absolute top-0 left-0 w-full h-1 bg-brand/20"></div>
+<div>
+<input class="w-full bg-transparent border-b border-white/10 border-t-0 border-x-0 focus:ring-0 focus:border-brand p-4 text-[11px] font-bold tracking-[0.2em] placeholder:text-white/10 uppercase text-white" placeholder="ИМЯ" type="text"/>
+</div>
+<div>
+<input class="w-full bg-transparent border-b border-white/10 border-t-0 border-x-0 focus:ring-0 focus:border-brand p-4 text-[11px] font-bold tracking-[0.2em] placeholder:text-white/10 uppercase text-white" placeholder="ТЕЛЕФОН" type="tel"/>
+</div>
+<div>
+<select class="w-full bg-transparent border-b border-white/10 border-t-0 border-x-0 focus:ring-0 focus:border-brand p-4 text-[11px] font-bold tracking-[0.2em] text-white/30 uppercase outline-none">
+<option>ВЫБРАТЬ УСЛУГУ</option>
+<option>Стрижка</option>
+<option>Окрашивание</option>
+<option>Комплекс</option>
+</select>
+</div>
+<button class="w-full bg-brand text-black py-6 mt-10 uppercase text-[11px] font-black tracking-[0.4em] hover:shadow-[0_0_40px_rgba(253,252,240,0.2)] transition-all rounded-custom">Отправить запрос</button>
+</form>
+</div>
+</section>
+<!-- END: BookingSection -->
+<!-- BEGIN: ContactsSection -->
+<footer class="py-24 bg-matte border-t border-white/5" id="contacts">
+<div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-start gap-16">
+<div class="max-w-xs">
+<h2 class="text-2xl font-black mb-8 tracking-tighter reveal-header">ФАКТУРА</h2>
+<p class="text-white/30 text-[11px] uppercase tracking-widest leading-relaxed mb-10 reveal-item">Мы работаем ежедневно с 10:00 до 22:00. <br/>Предварительная запись обязательна.</p>
+<div class="flex space-x-10 text-[9px] font-bold tracking-[0.3em] reveal-item" style="transition-delay: 0.1s;">
+<a class="hover:text-brand transition-colors opacity-50 hover:opacity-100" href="#">INSTAGRAM</a>
+<a class="hover:text-brand transition-colors opacity-50 hover:opacity-100" href="#">VK</a>
+<a class="hover:text-brand transition-colors opacity-50 hover:opacity-100" href="#">TG</a>
+</div>
+</div>
+<div class="w-full md:w-1/2 h-72 grayscale rounded-custom overflow-hidden opacity-30 hover:opacity-60 transition-all duration-1000 border border-white/5 reveal-item">
+<!-- Simplified Map Placeholder -->
+<div class="w-full h-full bg-graphite flex items-center justify-center">
+<span class="text-white/10 text-[10px] uppercase tracking-[0.5em]">Interactive Architectural Map</span>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 mt-24 pt-10 border-t border-white/5 text-[9px] text-white/10 uppercase tracking-[0.5em] flex flex-col md:flex-row justify-between gap-4">
+<span>© 2024 FAKTURA SALON. ALL RIGHTS RESERVED.</span>
+<span>SANKT-PETERSBURG / RUSSIA</span>
+</div>
+</footer>
+<!-- END: ContactsSection -->
+<!-- BEGIN: InteractiveScripts -->
+<script data-purpose="quiz-logic">
+    function nextStep(current) {
+      const steps = document.querySelectorAll('.quiz-step');
+      steps[current-1].classList.remove('active');
+      steps[current].classList.add('active');
+    }
+  </script>
+<script data-purpose="calculator-logic">
+    function calculatePrice() {
+      const basePrice = parseInt(document.getElementById('calc-service').value);
+      const masterMulti = parseFloat(document.getElementById('calc-master').value);
+      const lengthMulti = parseFloat(document.querySelector('input[name="length"]:checked').value);
+      
+      const total = Math.round(basePrice * masterMulti * lengthMulti);
+      document.getElementById('calc-result').innerText = total.toLocaleString() + ' ₽';
+    }
+  </script>
+<script data-purpose="reveal-logic">
+    document.addEventListener('DOMContentLoaded', () => {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      const elementsToReveal = document.querySelectorAll('.reveal-header, .reveal-item');
+      elementsToReveal.forEach(el => observer.observe(el));
+    });
+  </script>
+<!-- END: InteractiveScripts -->
+</body></html>

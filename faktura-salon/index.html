@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>ФАКТУРА | Студия красоты Санкт-Петербург</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&amp;display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS v3 -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#fdfcf0', // Soft warm light/champagne
+            graphite: '#1a1a1a', // Deep graphite gray
+            matte: '#121212', // Matte black
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            'custom': '2px', // More architectural, sharper but slightly rounded
+          },
+          boxShadow: {
+            'soft': '0 10px 40px -10px rgba(0,0,0,0.5)',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="bg-graphite text-white font-sans selection:bg-brand selection:text-black concrete-bg">
+  <!-- BEGIN: Navigation -->
+  <nav class="fixed top-0 w-full z-50 px-8 py-6 flex justify-between items-center glass-nav border-b border-white/5">
+    <div class="text-xl font-black tracking-tighter">ФАКTURA</div>
+
+    <!-- Desktop menu -->
+    <div class="hidden md:flex space-x-12 text-[10px] uppercase tracking-[0.3em] font-medium opacity-70">
+      <a class="nav-link hover:text-brand hover:opacity-100 transition-all" href="#about">О нас</a>
+      <a class="nav-link hover:text-brand hover:opacity-100 transition-all" href="#services">Услуги</a>
+      <a class="nav-link hover:text-brand hover:opacity-100 transition-all" href="#masters">Мастера</a>
+      <a class="nav-link hover:text-brand hover:opacity-100 transition-all" href="#quiz">Квиз</a>
+      <a class="nav-link hover:text-brand hover:opacity-100 transition-all" href="#contacts">Контакты</a>
+    </div>
+
+    <!-- Desktop CTA -->
+    <a class="hidden md:inline-block px-5 py-2 border border-white/10 hover:border-brand/30 hover:bg-brand hover:text-black transition-all text-[10px] uppercase tracking-[0.2em] rounded-custom"
+      href="#booking">
+      Записаться
+    </a>
+
+    <!-- Mobile burger button -->
+    <button
+      id="burger-btn"
+      class="burger-btn md:hidden"
+      aria-label="Открыть меню"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+    </button>
+  </nav>
+
+  <!-- Mobile fullscreen menu overlay -->
+  <div
+    id="mobile-menu"
+    class="mobile-menu"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Навигация"
+  >
+    <div class="mobile-menu__inner">
+      <!-- Nav links -->
+      <nav class="mobile-menu__nav" aria-label="Основное меню">
+        <a class="mobile-menu__link nav-link" href="#about">О нас</a>
+        <a class="mobile-menu__link nav-link" href="#services">Услуги</a>
+        <a class="mobile-menu__link nav-link" href="#masters">Мастера</a>
+        <a class="mobile-menu__link nav-link" href="#quiz">Квиз</a>
+        <a class="mobile-menu__link nav-link" href="#contacts">Контакты</a>
+      </nav>
+
+      <!-- CTA -->
+      <a class="mobile-menu__cta" href="#booking">Записаться</a>
+
+      <!-- Social links -->
+      <div class="mobile-menu__socials">
+        <a href="https://www.instagram.com/factura.hair" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="mobile-menu__social">Instagram</a>
+        <a href="https://vk.com/factura.hair" target="_blank" rel="noopener noreferrer" aria-label="VK" class="mobile-menu__social">VK</a>
+        <a href="https://t.me/factura_hair" target="_blank" rel="noopener noreferrer" aria-label="Telegram" class="mobile-menu__social">TG</a>
+      </div>
+    </div>
+  </div>
+  <!-- END: Navigation -->
+  <!-- BEGIN: HeroSection -->
+  <section class="relative h-screen flex items-center justify-center overflow-hidden bg-matte">
+    <div class="absolute inset-0 z-0 parallax-bg opacity-40 mix-blend-luminosity overflow-hidden">
+      <img
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO5GHWszfatYgaIdnp81XvQFUNzD8YdCaB73VV7ZobC78rLBk0lgL98jggV_dJ94X_6n8LHU3KyMbItZ5t0HlGlmXkQGUDZav-yA4eAc7F0JItAJSIHcCqowx321Ktjgk9xG1AVxLhorRAggkJq4GzqJtCsVkBTJu2ElEsKQ4hHgeckXB6HqIsohxQCGwevmOT4NDfuMdg4UD8x5Oz5n0GfF91sVH1INOJ1WO5kvIZj7uvNF7IAHh1So83h8xS5pAdYXpECQfeZJ4"
+        alt=""
+        width="1920"
+        height="1280"
+        fetchpriority="high"
+        decoding="async"
+        class="w-full h-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-t from-graphite via-transparent to-matte/60 z-10"></div>
+    <div class="relative z-20 text-center px-4">
+      <h1 class="text-[12vw] md:text-[8vw] font-black leading-none tracking-tighter mb-6 reveal-header">
+        ФОРМА. СТИЛЬ.<br />
+        <span class="text-outline hover:text-brand transition-all duration-1000">ФАКТУРА.</span>
+      </h1>
+      <p
+        class="text-[10px] md:text-xs uppercase tracking-[0.6em] opacity-40 mb-16 animate-fade-in animate-fade-in-delay-200">
+        Премиальная студия в сердце Петербурга</p>
+      <div class="animate-fade-in animate-fade-in-delay-400">
+        <a class="bg-brand text-black px-14 py-5 text-[11px] font-bold uppercase tracking-[0.2em] hover:shadow-[0_0_30px_rgba(253,252,240,0.3)] transition-all inline-block rounded-custom"
+          href="#booking">
+          Стать гостем
+        </a>
+      </div>
+    </div>
+    <!-- Author mark: vertical signature -->
+    <span class="author-mark author-mark--hero" aria-hidden="true">dev by max</span>
+  </section>
+  <!-- END: HeroSection -->
+  <!-- BEGIN: AboutSection -->
+  <section class="py-40 px-8 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-24 relative z-10" id="about">
+    <div class="md:w-1/2" data-purpose="philosophy-text">
+      <span class="text-brand/50 uppercase tracking-[0.4em] text-[10px] mb-8 block font-semibold">— Философия</span>
+      <h2 class="text-4xl md:text-5xl font-bold mb-10 leading-[1.1] tracking-tight text-brand reveal-header">Ваш стиль
+        как произведение искусства.</h2>
+      <p class="text-white/40 text-lg leading-relaxed mb-10 max-w-md font-light">
+        Мы не просто стрижем. Мы создаем архитектуру вашего образа, подчеркивая естественную эстетику и внутреннюю
+        свободу. Ничего лишнего. Только безупречная форма.
+      </p>
+      <div class="h-px w-20 bg-white/10"></div>
+    </div>
+    <div class="md:w-1/2 relative">
+      <div class="absolute -inset-4 bg-brand/5 blur-3xl rounded-full"></div>
+      <video id="philosophy-video" muted loop playsinline
+        class="relative w-full h-[650px] object-cover grayscale opacity-90 hover:opacity-100 hover:grayscale-0 transition-all duration-1000 rounded-custom shadow-soft">
+        <source src="../photos_inside/AQPYj2u7J_JmH5_W8xjeeeJ9NerGheMezryGy5fLFM2L3owj2GkXi4P9uwTJ0WH.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <!-- Author mark: image overlay -->
+      <span class="author-mark author-mark--image" aria-hidden="true">@devbymax</span>
+    </div>
+  </section>
+  <!-- END: AboutSection -->
+  <!-- BEGIN: ServicesSection -->
+  <section class="price-list py-40 bg-matte/50 border-y border-white/5" id="services">
+    <div class="max-w-7xl mx-auto px-8">
+
+      <!-- Заголовок секции -->
+      <div class="flex flex-col md:flex-row justify-between items-baseline mb-16 gap-4">
+        <h2 class="text-6xl md:text-8xl font-black tracking-tighter opacity-10 reveal-header">SERVICES</h2>
+        <p class="text-brand/40 uppercase tracking-[0.4em] text-[10px] font-bold">Price List 25/26</p>
+      </div>
+
+      <!-- Табы (навигация по категориям) -->
+      <div class="price-list__tabs-wrapper mb-20 reveal-item">
+        <nav class="price-list__tabs" role="tablist" aria-label="Категории услуг">
+          <button class="price-list__tab price-list__tab--active" role="tab" aria-selected="true" data-tab="brows">Брови
+            и ресницы</button>
+          <button class="price-list__tab" role="tab" aria-selected="false" data-tab="coloring">Окрашивания</button>
+          <button class="price-list__tab" role="tab" aria-selected="false" data-tab="makeup">Макияж</button>
+          <button class="price-list__tab" role="tab" aria-selected="false" data-tab="styling">Стайлинг</button>
+          <button class="price-list__tab" role="tab" aria-selected="false" data-tab="haircuts">Стрижки</button>
+          <button class="price-list__tab" role="tab" aria-selected="false" data-tab="care">Уходовые процедуры</button>
+          <button class="price-list__tab" role="tab" aria-selected="false" data-tab="wedding">Свадебные образы</button>
+          <button class="price-list__tab" role="tab" aria-selected="false" data-tab="lamination">Ламинирование</button>
+        </nav>
+      </div>
+
+      <!-- Контент табов -->
+      <div class="price-list__content">
+
+        <!-- ═══ Брови и ресницы ═══ -->
+        <div class="price-list__panel price-list__panel--active" data-panel="brows" role="tabpanel">
+          <div class="price-list__grid">
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Архитектура бровей</h4>
+                <span class="price-list__price">1 700 ₽</span>
+              </div>
+              <p class="price-list__desc">Идеальные брови – ключ к выразительному взгляду и гармоничному образу.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Окрашивание бровей</h4>
+                <span class="price-list__price">1 700 ₽</span>
+              </div>
+              <p class="price-list__desc">Стойкий и естественный результат для выразительного взгляда.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Ламинирование бровей</h4>
+                <span class="price-list__price">2 500 ₽</span>
+              </div>
+              <p class="price-list__desc">Безупречный образ без ежедневных усилий. Подходит для любых бровей.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Архитектура + окрашивание</h4>
+                <span class="price-list__price">3 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Комплекс из 2 услуг со скидкой 15%.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Архитектура + окрашивание + ламинирование</h4>
+                <span class="price-list__price">4 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Комплекс из 3 услуг со скидкой 40%.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Депиляция лица (1 зона)</h4>
+                <span class="price-list__price">500 ₽</span>
+              </div>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Окрашивание ресниц</h4>
+                <span class="price-list__price">1 500 ₽</span>
+              </div>
+              <p class="price-list__desc">Выразительный взгляд без ежедневного использования туши.</p>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- ═══ Окрашивания ═══ -->
+        <div class="price-list__panel" data-panel="coloring" role="tabpanel">
+          <div class="price-list__grid">
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Окрашивание в один тон</h4>
+                <span class="price-list__price">от 5 500 ₽</span>
+              </div>
+              <p class="price-list__desc">Консультация, индивидуальный подбор цвета, окрашивание, базовый уход и лёгкая
+                укладка. Цена зависит от категории мастера. Материалы отдельно.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Сложное окрашивание (до 25%)</h4>
+                <span class="price-list__price">от 7 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Растяжка цвета: мелирование, эиртач, балаяж, шатуш. Частичное рассветление до
+                25% массы волос.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Сложное окрашивание (до 50%)</h4>
+                <span class="price-list__price">от 9 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Растяжка цвета: мелирование, эиртач, балаяж, шатуш. Частичное рассветление до
+                50% массы волос.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Сложное окрашивание (полное)</h4>
+                <span class="price-list__price">от 11 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Полное рассветление всей массы волос. Рекомендуем предварительную бесплатную
+                консультацию.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Тотал блонд (корни + тонирование)</h4>
+                <span class="price-list__price">от 9 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Обесцвечивание корней + тонирование волос. Цена зависит от категории мастера.
+              </p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Тотал блонд (полный)</h4>
+                <span class="price-list__price">от 11 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Обесцвечивание корней + очищение цвета по длине + тонирование.</p>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- ═══ Макияж ═══ -->
+        <div class="price-list__panel" data-panel="makeup" role="tabpanel">
+          <div class="price-list__grid">
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Экспресс-макияж</h4>
+                <span class="price-list__price">3 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Лёгкий макияж как идеальное дополнение к красивой укладке.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Дневной макияж</h4>
+                <span class="price-list__price">4 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Отлично продержится в течение дня. Успевайте получать комплименты.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Вечерний макияж</h4>
+                <span class="price-list__price">5 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Акцентный, стойкий макияж, который идеально дополнит образ и продержится весь
+                вечер.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Урок: макияж для себя</h4>
+                <span class="price-list__price">10 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Индивидуальный урок с визажистом: подбор техники, разбор косметички,
+                рекомендации по покупке.</p>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- ═══ Стайлинг ═══ -->
+        <div class="price-list__panel" data-panel="styling" role="tabpanel">
+          <div class="price-list__grid">
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Укладка Легкая</h4>
+                <span class="price-list__price">от 2 600 ₽</span>
+              </div>
+              <p class="price-list__desc">Повседневные укладки на брашинг. Консультация, мытье головы и базовый уход
+                включены. Цена зависит от категории мастера.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Укладка Медиум</h4>
+                <span class="price-list__price">от 3 100 ₽</span>
+              </div>
+              <p class="price-list__desc">Укладки на горячие инструменты. Консультация, мытье головы и базовый уход
+                включены.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Укладка Экстра</h4>
+                <span class="price-list__price">5 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Частично собранные волосы, элементы плетения. Фиксированная цена у всех
+                категорий мастеров.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Прическа</h4>
+                <span class="price-list__price">7 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Собранные волосы, пучки и плетения. Фиксированная цена у всех категорий
+                мастеров.</p>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- ═══ Стрижки ═══ -->
+        <div class="price-list__panel" data-panel="haircuts" role="tabpanel">
+          <div class="price-list__grid">
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Женская стрижка</h4>
+                <span class="price-list__price">от 3 600 ₽</span>
+              </div>
+              <p class="price-list__desc">Консультация, базовый уход и лёгкая укладка включены. Цена зависит от
+                категории мастера, не от длины волос.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Мужская стрижка</h4>
+                <span class="price-list__price">от 3 100 ₽</span>
+              </div>
+              <p class="price-list__desc">Консультация, базовый уход и лёгкая укладка включены. Цена зависит от
+                категории мастера.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Детская стрижка</h4>
+                <span class="price-list__price">3 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Для детей до 7 лет. Цена неизменна для любой длины волос.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Стрижка чёлки</h4>
+                <span class="price-list__price">от 1 300 ₽</span>
+              </div>
+              <p class="price-list__desc">Без мытья головы и укладки. Цена зависит от категории мастера.</p>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- ═══ Уходовые процедуры ═══ -->
+        <div class="price-list__panel" data-panel="care" role="tabpanel">
+          <div class="price-list__grid">
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Пилинг для кожи головы</h4>
+                <span class="price-list__price">5 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Диагностика кожи головы микроскопом, консультация, пилинг, тонизирующий
+                массаж, персональная система ухода и лёгкая укладка.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Интенсивный уход для волос</h4>
+                <span class="price-list__price">от 3 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Глубокое питание, увлажнение и восстановление. Индивидуальный коктейль средств
+                на основе диагностики.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Обновляющий комплекс</h4>
+                <span class="price-list__price">7 500 ₽</span>
+              </div>
+              <p class="price-list__desc">Пилинг для кожи головы + интенсивный уход для волос. Комплекс из 2 услуг со
+                скидкой 20%.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Уход К18</h4>
+                <span class="price-list__price">от 2 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Восстановление волос на молекулярном уровне. К стрижке / укладке — 2 000, к
+                окрашиванию — 3 000.</p>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- ═══ Свадебные образы ═══ -->
+        <div class="price-list__panel" data-panel="wedding" role="tabpanel">
+          <div class="price-list__grid">
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Свадебная причёска</h4>
+                <span class="price-list__price">12 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Образ, который запомнится надолго. Пробная — 7 000 ₽. Сет (пробная +
+                свадебная) — 18 000 ₽.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Свадебный макияж</h4>
+                <span class="price-list__price">8 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Пробный свадебный макияж — 5 000 ₽. Сет (пробный + свадебный) — 12 000 ₽.</p>
+            </article>
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Полный свадебный образ</h4>
+                <span class="price-list__price">30 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Свадебный сет: пробная причёска и макияж + свадебная причёска и макияж.</p>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- ═══ Ламинирование ═══ -->
+        <div class="price-list__panel" data-panel="lamination" role="tabpanel">
+          <div class="price-list__grid">
+
+            <article class="price-list__item">
+              <div class="price-list__item-header">
+                <h4 class="price-list__name">Ламинирование SEBASTIAN</h4>
+                <span class="price-list__price">от 15 000 ₽</span>
+              </div>
+              <p class="price-list__desc">Лёгкое тонирование + уход: натуральный состав на основе соевого белка создаёт
+                защитную оболочку, укрепляет структуру и усиливает блеск. Средняя длина — 15 000 ₽, длинные — 20 000 ₽.
+              </p>
+            </article>
+
+          </div>
+        </div>
+
+      </div><!-- /.price-list__content -->
+
+      <p class="text-center text-[10px] text-white/20 italic tracking-wider leading-relaxed mt-16">* Точная стоимость
+        определяется мастером после очной консультации</p>
+
+    </div>
+  </section>
+  <!-- END: ServicesSection -->
+  <!-- BEGIN: MastersSection -->
+  <section class="py-40 px-8 max-w-7xl mx-auto" id="masters">
+    <div class="text-center mb-24">
+      <h2 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 reveal-header">MASTERS</h2>
+      <div class="h-px w-12 bg-brand/30 mx-auto"></div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+      <!-- Master 1 -->
+      <div class="group cursor-pointer reveal-item">
+        <div class="overflow-hidden mb-8 rounded-custom bg-matte aspect-[3/4]">
+          <img alt="Alex"
+            width="768"
+            height="1024"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUMjsDwQ9tFXQIBpR0QK-HRY6jd2hGh6p8h6tAC0WTMfs_IFbwnBwH96vKTZb8TtVwpbmNUYAw_HqgcGGmDdxVDwGyAFOxEkxMtIaMidvl5jsZirtvWOPER8XbkdNbCA6dNCu64qUXwAhzM8l7Ya0SMgbOoxn5m5RGozi1u0-3lpXoIoKtoKE0GrjkhQyt_56fl9GwPduK9bp9tf_I8ZX0kznakjYi2tLd6p5e-G81ECiePYXLpLeouV3kVrSO9u3curz4vYkWut8" />
+        </div>
+        <h3 class="text-xl font-bold tracking-tight mb-2">АЛЕКСАНДР В.</h3>
+        <p class="text-brand/40 text-[9px] uppercase tracking-[0.4em] font-bold">Art Director / Top Stylist</p>
+      </div>
+      <!-- Master 2 -->
+      <div class="group cursor-pointer reveal-item reveal-item-delay-100">
+        <div class="overflow-hidden mb-8 rounded-custom bg-matte aspect-[3/4]">
+          <img alt="Elena"
+            width="768"
+            height="1024"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmzGdO-A6gXB8M4Q45kC2WErEgyOWjacVjkLiBsfyQlB5HijvmB3iRRznuZyWqGoy0K3fabgFxoWZ2Gv2_6WPPM_ctwT60lo3MBulMIwjObFdYEZgaWF2Wu5u1Q5MVqWQCzXCER-o5xArJvMH8GMqjlC-SwTcovQb4ps6jxKxiXq6GEt6Yv3kTNGfB3cFSq0v9jFGMjXYWeGmLI06uD1G0w6NeqXCrcRXUUa3FSE4hB-tQd7gBrL8jxL8h8WXyFQHvMWVE-bizYwk" />
+        </div>
+        <h3 class="text-xl font-bold tracking-tight mb-2">ЕЛЕНА М.</h3>
+        <p class="text-brand/40 text-[9px] uppercase tracking-[0.4em] font-bold">Senior Colorist</p>
+      </div>
+      <!-- Master 3 -->
+      <div class="group cursor-pointer reveal-item reveal-item-delay-200">
+        <div class="overflow-hidden mb-8 rounded-custom bg-matte aspect-[3/4]">
+          <img alt="Mark"
+            width="768"
+            height="1024"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnM2AWvm4qNt2k5096dNgP_674MAnQoTAZ3kH2cECMXc54MY3ryDW3OfMLrafb23-1Q7QnQMFRmKoyE2MkWbeUbUsPuUChKSfhSPbGfGCqxL9zVIDqB6YcnP5b3i1-6zZwp3jzWZoF2vERx8du_IiZRoj-BUB0yxphmi-l4b9Qdvb-XAIZnwMbA90xQWoCPoYOjKTfuE4Yu8JrtLfJgIOuTbiKw_7LvDAysLqZ3YsqPEWSJc8V7gzVwYCdgUI0c8kdxltT8qwT3WM" />
+        </div>
+        <h3 class="text-xl font-bold tracking-tight mb-2">МАРК С.</h3>
+        <p class="text-brand/40 text-[9px] uppercase tracking-[0.4em] font-bold">Barber Specialist</p>
+      </div>
+    </div>
+  </section>
+  <!-- END: MastersSection -->
+  <!-- BEGIN: QuizSection -->
+  <section class="quiz-section py-40 bg-brand text-matte relative overflow-hidden" id="quiz">
+    <div
+      class="absolute top-0 right-0 w-96 h-96 bg-white/30 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none">
+    </div>
+
+    <div class="max-w-3xl mx-auto px-8 relative z-10 flex flex-col items-center">
+
+      <div class="text-center mb-12 quiz-section__header">
+        <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase tracking-tighter reveal-header">Подбери свой стиль
+        </h2>
+        <p class="text-matte/60 text-sm font-light max-w-md mx-auto reveal-item">Ответьте на 3 коротких вопроса и
+          получите персональную рекомендацию по образу и профессиональному мастеру вашего стиля.</p>
+      </div>
+
+      <div
+        class="bg-white/40 backdrop-blur-md w-full p-8 md:p-14 border border-white/20 rounded-custom shadow-soft reveal-item relative"
+        id="quiz-container">
+
+        <!-- Прогресс бар -->
+        <div class="quiz-progress mb-10 hidden flex flex-col gap-4" id="quiz-progress-container">
+          <div class="flex justify-between items-center">
+            <button id="quiz-btn-prev"
+              class="quiz-btn-nav invisible text-[10px] uppercase tracking-widest font-bold text-matte/50 hover:text-matte transition-colors flex items-center gap-2">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" class="opacity-70">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+              Назад
+            </button>
+            <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-matte/40" id="quiz-step-counter">Шаг 1 из
+              4</span>
+          </div>
+          <div class="w-full bg-matte/5 h-1 rounded-full overflow-hidden">
+            <div class="bg-matte h-full w-1/4 transition-all duration-500 ease-out" id="quiz-progress-bar">
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 1: Препочтительный стиль -->
+        <div class="quiz-step active" data-step="1">
+          <h4 class="text-xl md:text-2xl mb-8 font-medium text-center">Какой стиль вам ближе?</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button
+              class="quiz-answer py-6 px-6 border border-matte/10 hover:border-matte hover:shadow-soft transition-all rounded-custom flex flex-col items-center gap-3 group bg-white/20"
+              data-question="style" data-value="classic">
+              <span class="text-sm font-bold uppercase tracking-widest text-matte transition-colors">Классика</span>
+              <span class="text-[10px] text-matte/50 font-light text-center">Элегантность и вневременной шик</span>
+            </button>
+            <button
+              class="quiz-answer py-6 px-6 border border-matte/10 hover:border-matte hover:shadow-soft transition-all rounded-custom flex flex-col items-center gap-3 group bg-white/20"
+              data-question="style" data-value="trend">
+              <span class="text-sm font-bold uppercase tracking-widest text-matte transition-colors">Авангард /
+                Тренд</span>
+              <span class="text-[10px] text-matte/50 font-light text-center">Смелые решения и яркий характер</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Длина волос -->
+        <div class="quiz-step" data-step="2">
+          <h4 class="text-xl md:text-2xl mb-8 font-medium text-center">Какая длина волос у вас сейчас?</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button
+              class="quiz-answer py-8 px-6 border border-matte/10 hover:border-matte hover:shadow-soft transition-all rounded-custom flex flex-col items-center gap-3 group bg-white/20"
+              data-question="length" data-value="short">
+              <span class="text-sm font-bold uppercase tracking-widest text-matte">Короткие</span>
+            </button>
+            <button
+              class="quiz-answer py-8 px-6 border border-matte/10 hover:border-matte hover:shadow-soft transition-all rounded-custom flex flex-col items-center gap-3 group bg-white/20"
+              data-question="length" data-value="long">
+              <span class="text-sm font-bold uppercase tracking-widest text-matte">Средние / Длинные</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Приоритет -->
+        <div class="quiz-step" data-step="3">
+          <h4 class="text-xl md:text-2xl mb-8 font-medium text-center">Что для вас сейчас важнее всего?</h4>
+          <div class="grid grid-cols-1 gap-4">
+            <button
+              class="quiz-answer py-5 px-6 border border-matte/10 hover:border-matte hover:shadow-soft transition-all rounded-custom text-left group bg-white/20"
+              data-question="priority" data-value="natural">
+              <span class="text-sm font-bold uppercase tracking-widest block mb-1 text-matte">Натуральный образ</span>
+              <span class="text-[10px] text-matte/50 font-light">Подчеркнуть естественную красоту без видимых
+                усилий</span>
+            </button>
+            <button
+              class="quiz-answer py-5 px-6 border border-matte/10 hover:border-matte hover:shadow-soft transition-all rounded-custom text-left group bg-white/20"
+              data-question="priority" data-value="expressive">
+              <span class="text-sm font-bold uppercase tracking-widest block mb-1 text-matte">Выразительный
+                эффект</span>
+              <span class="text-[10px] text-matte/50 font-light">Обратить на себя внимание и получить
+                WoW-результат</span>
+            </button>
+            <button
+              class="quiz-answer py-5 px-6 border border-matte/10 hover:border-matte hover:shadow-soft transition-all rounded-custom text-left group bg-white/20"
+              data-question="priority" data-value="easy">
+              <span class="text-sm font-bold uppercase tracking-widest block mb-1 text-matte">Легкость в укладке</span>
+              <span class="text-[10px] text-matte/50 font-light">Форма, которая будет идеально лежать каждый день</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 4: Lead Form -->
+        <div class="quiz-step" data-step="4">
+          <h4 class="text-xl md:text-2xl mb-4 font-medium text-center">Анализируем ответы...</h4>
+          <p class="text-matte/60 text-xs font-light text-center mb-8 max-w-sm mx-auto">Оставьте контакты, чтобы
+            закрепить за собой приоритет при записи и получить вашу персональную рекомендацию.</p>
+
+          <form id="quiz-lead-form" class="space-y-6 max-w-sm mx-auto">
+            <div class="relative">
+              <input type="text" id="quiz-name" name="name" required
+                class="w-full bg-transparent border-b border-matte/20 focus:border-matte p-4 text-xs font-bold tracking-widest placeholder:text-matte/30 uppercase text-matte outline-none transition-colors"
+                placeholder="ВАШЕ ИМЯ">
+            </div>
+            <div class="relative">
+              <input type="email" id="quiz-email" name="email" required
+                class="w-full bg-transparent border-b border-matte/20 focus:border-matte p-4 text-xs font-bold tracking-widest placeholder:text-matte/30 uppercase text-matte outline-none transition-colors"
+                placeholder="ВАШ E-MAIL">
+            </div>
+            <button type="submit" id="quiz-submit-btn"
+              class="w-full bg-matte text-white py-5 mt-4 uppercase text-[10px] font-black tracking-[0.3em] hover:shadow-[0_10px_30px_rgba(18,18,18,0.15)] hover:-translate-y-1 transition-all rounded-custom flex justify-center items-center gap-3">
+              <span id="quiz-btn-text">Получить рекомендацию</span>
+              <svg id="quiz-btn-loader" class="hidden animate-spin" width="14" height="14" viewBox="0 0 24 24"
+                fill="none">
+                <path
+                  d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </button>
+            <p class="text-[9px] text-center text-matte/40 uppercase tracking-widest mt-4">Мы не рассылаем спам.</p>
+          </form>
+        </div>
+
+        <!-- Result View -->
+        <div class="quiz-step text-center" data-step="result">
+          <div
+            class="w-16 h-16 bg-matte text-brand flex items-center justify-center rounded-full mx-auto mb-6 shadow-soft">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </div>
+          <h4 class="text-2xl font-black mb-4 uppercase tracking-tighter">Ваш образ сформирован</h4>
+
+          <div class="bg-white/50 border border-matte/5 p-6 rounded-custom text-left mb-8 max-w-sm mx-auto shadow-sm">
+            <div class="mb-5 pb-5 border-b border-matte/5">
+              <span class="text-[9px] uppercase tracking-widest text-matte/40 font-bold block mb-1">Рекомендованный
+                стиль</span>
+              <strong class="text-sm font-medium text-matte block" id="quiz-res-style">Архитектурный минимализм</strong>
+            </div>
+            <div class="mb-5 pb-5 border-b border-matte/5">
+              <span class="text-[9px] uppercase tracking-widest text-matte/40 font-bold block mb-1">Идеальная
+                услуга</span>
+              <strong class="text-sm font-medium text-matte block" id="quiz-res-service">Стрижка Топ-стилиста +
+                Уход</strong>
+            </div>
+            <div>
+              <span class="text-[9px] uppercase tracking-widest text-matte/40 font-bold block mb-1">Ваш мастер</span>
+              <strong class="text-sm font-medium text-matte block" id="quiz-res-master">Топ-стилист Александр</strong>
+            </div>
+          </div>
+
+          <p class="text-matte/60 font-light text-xs md:text-sm max-w-sm mx-auto leading-relaxed">Спасибо! Мы сохранили
+            ваши ответы и приоритетный слот. Администратор напишет вам в течение 10 минут. <br><br> <span
+              class="text-[10px] text-matte/40 uppercase tracking-widest">Если сообщение не приходит, проверьте папку
+              «Спам»</span></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- END: QuizSection -->
+  <!-- BEGIN: CalculatorSection -->
+  <section class="py-40 bg-graphite relative">
+    <div class="max-w-5xl mx-auto px-8">
+      <div class="text-center mb-20">
+        <h2 class="text-3xl font-bold uppercase tracking-[0.2em] mb-6 reveal-header">Калькулятор услуг</h2>
+        <div class="h-px w-24 bg-brand/20 mx-auto"></div>
+      </div>
+      <div class="relative flex items-center">
+        <!-- Left Vertical Label -->
+        <div class="absolute -left-16 hidden lg:block">
+          <span
+            class="text-[9px] uppercase tracking-[0.8em] text-white/20 font-bold whitespace-nowrap block origin-center -rotate-90 select-none">
+            ESTIMATE
+          </span>
+        </div>
+        <!-- Calculator Grid Container -->
+        <div
+          class="grid md:grid-cols-2 gap-0 bg-matte rounded-custom overflow-hidden border border-white/5 shadow-soft w-full reveal-item">
+          <div class="p-12 space-y-10" id="calc-form">
+            <div>
+              <label class="block text-[9px] uppercase tracking-[0.4em] mb-4 text-white/30 font-bold" for="calc-service">Тип услуги</label>
+              <select
+                class="w-full bg-graphite/50 border border-white/5 text-white/80 p-4 focus:ring-1 focus:ring-brand/30 focus:border-brand/30 rounded-custom transition-all text-sm outline-none"
+                id="calc-service" onchange="updateCalcUI()">
+                <!-- Опции генерируются в JS -->
+              </select>
+            </div>
+            <div id="calc-master-wrapper" class="hidden">
+              <label class="block text-[9px] uppercase tracking-[0.4em] mb-4 text-white/30 font-bold" for="calc-master">Уровень мастера</label>
+              <select
+                class="w-full bg-graphite/50 border border-white/5 text-white/80 p-4 focus:ring-1 focus:ring-brand/30 focus:border-brand/30 rounded-custom transition-all text-sm outline-none"
+                id="calc-master" onchange="calculatePrice()">
+                <!-- Опции генерируются в JS -->
+              </select>
+            </div>
+            <div id="calc-length-wrapper" class="hidden">
+              <label class="block text-[9px] uppercase tracking-[0.4em] mb-4 text-white/30 font-bold">Длина волос</label>
+              <div class="flex gap-4" id="calc-length-container">
+                <!-- Опции генерируются в JS -->
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col justify-center items-center bg-graphite/30 p-12 border-l border-white/5">
+            <p class="text-[9px] uppercase tracking-[0.4em] text-white/30 mb-4 font-bold">Предварительная стоимость</p>
+            <div class="text-6xl font-black text-brand mb-10 tracking-tighter" id="calc-result">5 000 ₽</div>
+            <p class="text-center text-[10px] text-white/20 italic tracking-wider leading-relaxed">*Точная стоимость
+              определяется мастером после очной консультации</p>
+          </div>
+        </div>
+        <!-- Right Vertical Label -->
+        <div class="absolute -right-16 hidden lg:block">
+          <span
+            class="text-[9px] uppercase tracking-[0.8em] text-white/20 font-bold whitespace-nowrap block origin-center rotate-90 select-none">
+            TRANSPARENCY
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END: CalculatorSection -->
+  <!-- BEGIN: GallerySection -->
+  <section class="pt-12 pb-40 px-4 bg-graphite">
+    <!-- Section Label -->
+    <div class="max-w-[1600px] mx-auto px-4 mb-16 text-center md:text-left">
+      <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tighter text-brand/30 reveal-header">ИНТЕРЬЕР</h2>
+      <div class="h-px w-12 bg-brand/20 mt-4 hidden md:block"></div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-[1600px] mx-auto">
+      <div class="masonry-item overflow-hidden h-[450px] rounded-custom bg-matte reveal-item">
+        <img class="gallery-img"
+          src="../photos_inside/XXXL.webp" alt="Интерьер салона" width="1024" height="1280" loading="lazy"
+          decoding="async" />
+      </div>
+      <div
+        class="masonry-item overflow-hidden h-[650px] md:-mt-20 rounded-custom bg-matte shadow-soft reveal-item reveal-item-delay-100">
+        <img class="gallery-img"
+          src="../photos_inside/XXXL (1).webp" alt="Интерьер салона" width="960" height="1280" loading="lazy"
+          decoding="async" />
+      </div>
+      <div class="masonry-item overflow-hidden h-[500px] rounded-custom bg-matte reveal-item reveal-item-delay-200">
+        <img class="gallery-img"
+          src="../photos_inside/XXXL (2).webp" alt="Интерьер салона" width="1024" height="1280" loading="lazy"
+          decoding="async" />
+      </div>
+      <div
+        class="masonry-item overflow-hidden h-[600px] md:-mt-10 rounded-custom bg-matte reveal-item reveal-item-delay-300">
+        <img class="gallery-img"
+          src="../photos_inside/XXXL (3).webp" alt="Интерьер салона" width="1024" height="1280" loading="lazy"
+          decoding="async" />
+      </div>
+    </div>
+  </section>
+  <!-- END: GallerySection -->
+  <!-- BEGIN: BookingSection -->
+  <section class="py-40 bg-graphite border-t border-white/5" id="booking">
+    <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-24 items-center">
+      <div>
+        <h2 class="text-7xl md:text-9xl font-black mb-12 leading-none tracking-tighter text-brand/10 reveal-header">
+          GET<br />LOOK</h2>
+        <p class="text-xl font-light max-w-sm mb-12 text-white/60 reveal-item">Оставьте контакты, и наш администратор
+          свяжется с вами для подбора времени.</p>
+        <div class="space-y-6">
+          <div class="flex items-center gap-6 reveal-item reveal-item-delay-100">
+            <span class="w-16 h-px bg-brand/20"></span>
+            <span class="text-xs uppercase tracking-[0.3em] font-medium opacity-80">наб. реки Карповки, 31к1</span>
+          </div>
+          <div class="flex items-center gap-6 reveal-item reveal-item-delay-200">
+            <span class="w-16 h-px bg-brand/20"></span>
+            <span class="text-xs uppercase tracking-[0.3em] font-medium opacity-80">+7 (900) 626-22-88</span>
+          </div>
+        </div>
+      </div>
+      <form id="booking-form"
+        class="space-y-8 bg-matte p-14 rounded-custom border border-white/5 shadow-soft relative overflow-hidden reveal-item">
+        <div class="absolute top-0 left-0 w-full h-1 bg-brand/20"></div>
+        <div>
+          <input id="booking-name" name="name" required
+            class="w-full bg-transparent border-b border-white/10 border-t-0 border-x-0 focus:ring-0 focus:border-brand p-4 text-[11px] font-bold tracking-[0.2em] placeholder:text-white/10 uppercase text-white outline-none"
+            placeholder="ИМЯ" type="text" />
+        </div>
+        <div>
+          <input id="booking-phone" name="phone" required
+            class="w-full bg-transparent border-b border-white/10 border-t-0 border-x-0 focus:ring-0 focus:border-brand p-4 text-[11px] font-bold tracking-[0.2em] placeholder:text-white/10 uppercase text-white outline-none"
+            placeholder="ТЕЛЕФОН" type="tel" />
+        </div>
+        <div>
+          <select id="booking-service" name="service" required aria-label="Выбор услуги"
+            class="w-full bg-transparent border-b border-white/10 border-t-0 border-x-0 focus:ring-0 focus:border-brand p-4 text-[11px] font-bold tracking-[0.2em] text-white/50 uppercase outline-none">
+            <option value="">ВЫБРАТЬ УСЛУГУ</option>
+            <option value="Стрижка">Стрижка</option>
+            <option value="Окрашивание">Окрашивание</option>
+            <option value="Комплекс">Комплекс</option>
+          </select>
+        </div>
+        <button id="booking-submit-btn" type="submit"
+          class="w-full bg-brand text-black py-6 mt-10 uppercase text-[11px] font-black tracking-[0.4em] hover:shadow-[0_0_40px_rgba(253,252,240,0.2)] transition-all rounded-custom flex justify-center items-center gap-3">
+          <span id="booking-btn-text">Отправить запрос</span>
+          <svg id="booking-btn-loader" class="hidden animate-spin text-black" width="16" height="16" viewBox="0 0 24 24"
+            fill="none">
+            <path
+              d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </form>
+    </div>
+  </section>
+  <!-- END: BookingSection -->
+  <!-- BEGIN: ContactsSection -->
+  <footer class="py-24 bg-matte border-t border-white/5" id="contacts">
+    <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-start gap-16">
+      <div class="max-w-xs">
+        <h2 class="text-2xl font-black mb-8 tracking-tighter reveal-header">ФАКТУРА</h2>
+        <p class="text-white/30 text-[11px] uppercase tracking-widest leading-relaxed mb-10 reveal-item">Мы работаем
+          ежедневно с 10:00 до 22:00. <br />Предварительная запись обязательна.</p>
+        <div class="flex space-x-10 text-[9px] font-bold tracking-[0.3em] reveal-item reveal-item-delay-100">
+          <a href="https://www.instagram.com/factura.hair" target="_blank" rel="noopener noreferrer"
+            aria-label="Instagram" class="hover:text-brand transition-colors opacity-50 hover:opacity-100">INSTAGRAM</a>
+          <a href="https://vk.com/factura.hair" target="_blank" rel="noopener noreferrer" aria-label="VK"
+            class="hover:text-brand transition-colors opacity-50 hover:opacity-100">VK</a>
+          <a href="https://t.me/factura_hair" target="_blank" rel="noopener noreferrer" aria-label="Telegram"
+            class="hover:text-brand transition-colors opacity-50 hover:opacity-100">TG</a>
+        </div>
+      </div>
+      <div class="w-full md:w-1/2 h-72 rounded-custom overflow-hidden border border-white/5 reveal-item">
+        <iframe
+          title="Карта: салон Фактура, наб. реки Карповки"
+          src="https://yandex.ru/map-widget/v1/?ll=30.305758%2C59.969624&z=17.95&mode=search&oid=221109704279&ol=biz"
+          width="100%" height="100%" class="map-iframe"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+    <div
+      class="max-w-7xl mx-auto px-8 mt-24 pt-10 border-t border-white/5 text-[9px] text-white/10 uppercase tracking-[0.5em] flex flex-col md:flex-row justify-between gap-4">
+      <span>© 2024 FAKTURA SALON. ALL RIGHTS RESERVED.</span>
+      <span>SANKT-PETERSBURG / RUSSIA</span>
+      <!-- Author credit -->
+      <a href="https://t.me/devbymax" target="_blank" rel="noopener noreferrer" class="author-mark author-mark--footer" aria-label="Design & Dev by max">design &amp; dev — @devbymax</a>
+    </div>
+  </footer>
+  <!-- END: ContactsSection -->
+  <!-- BEGIN: InteractiveScripts -->
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.35/dist/lenis.min.js"></script>
+  <script src="script.js" defer></script>
+  <!-- END: InteractiveScripts -->
+</body>
+
+</html>

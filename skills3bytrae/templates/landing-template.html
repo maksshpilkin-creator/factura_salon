@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium [Service] in [City]. Book your appointment today.">
+    <title>[Business Name] | [Main Keyword]</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="header">
+        <div class="container header__container">
+            <a href="#" class="logo">[Business Name]</a>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="#services" class="nav__link">Services</a></li>
+                    <li><a href="#about" class="nav__link">About</a></li>
+                    <li><a href="#reviews" class="nav__link">Reviews</a></li>
+                    <li><a href="#contact" class="btn btn--primary">Book Now</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-toggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container hero__container">
+                <div class="hero__content">
+                    <h1 class="hero__title">Experience Premium [Service] in [City]</h1>
+                    <p class="hero__subtitle">Professional, reliable, and dedicated to your satisfaction. Rated 5 stars by over 500 locals.</p>
+                    <div class="hero__actions">
+                        <a href="#contact" class="btn btn--primary">Book Appointment</a>
+                        <a href="#services" class="btn btn--secondary">View Services</a>
+                    </div>
+                </div>
+                <div class="hero__image">
+                    <!-- Use 600x600 or similar aspect ratio -->
+                    <img src="assets/hero.webp" alt="[Service] demonstration" width="600" height="600">
+                </div>
+            </div>
+        </section>
+
+        <!-- Features/Benefits -->
+        <section id="services" class="section services">
+            <div class="container">
+                <h2 class="section-title">Why Choose Us?</h2>
+                <div class="grid grid--3">
+                    <div class="card">
+                        <h3>Expert Staff</h3>
+                        <p>Our team has over 10 years of experience in the industry.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Premium Quality</h3>
+                        <p>We use only the best products and equipment for superior results.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Satisfaction Guaranteed</h3>
+                        <p>We're not happy until you are perfectly satisfied with our service.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Proof -->
+        <section id="reviews" class="section bg-light">
+            <div class="container">
+                <h2 class="section-title">What Locals Say</h2>
+                <div class="grid grid--2">
+                    <div class="testimonial">
+                        <p class="testimonial__text">"Absolutely the best experience I've had. The team was professional and the results were amazing."</p>
+                        <p class="testimonial__author">- Sarah J., [City] Resident</p>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial__text">"Highly recommend! They went above and beyond to make sure everything was perfect."</p>
+                        <p class="testimonial__author">- Mike T., Local Business Owner</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA / Contact -->
+        <section id="contact" class="section cta">
+            <div class="container cta__container">
+                <div class="cta__content">
+                    <h2>Ready to Transform Your Look?</h2>
+                    <p>Book your appointment today and get 10% off your first visit.</p>
+                </div>
+                <form class="form" action="#" method="POST">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="tel" placeholder="Phone Number" required>
+                    <button type="submit" class="btn btn--primary">Request Booking</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__info">
+                    <h3>[Business Name]</h3>
+                    <p>[Street Address]<br>[City], [State] [Zip]</p>
+                    <p><a href="tel:5555555555">(555) 555-5555</a></p>
+                </div>
+                <div class="footer__links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+            <p class="footer__copyright">&copy; <span id="year"></span> [Business Name]. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
