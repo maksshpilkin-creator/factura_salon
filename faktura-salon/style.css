@@ -128,6 +128,34 @@
   background-color: rgba(18, 18, 18, 0.7);
 }
 
+/*
+ * Edge/Win native <select>: выпадающий список часто наследует color с самого поля.
+ * Светлое поле + тёмный текст → и закрытый вид, и список остаются читаемыми.
+ */
+.salon-native-select {
+  color-scheme: light;
+  background-color: #fdfcf0;
+  color: #121212;
+  border: 1px solid rgba(26, 26, 26, 0.2);
+}
+
+.salon-native-select:focus {
+  border-color: rgba(26, 26, 26, 0.45);
+  outline: none;
+}
+
+.salon-native-select option {
+  background-color: #fdfcf0;
+  color: #121212;
+}
+
+@media (forced-colors: active) {
+  .salon-native-select,
+  .salon-native-select option {
+    forced-color-adjust: none;
+  }
+}
+
 /* Active Link Animation from Fresh Cut */
 .nav-link {
   position: relative;
@@ -693,5 +721,385 @@ body.menu-open {
 
 .author-mark--footer:hover {
   color: rgba(253, 252, 240, 0.6);
+}
+
+/* ============================================
+   Reviews Section
+   ============================================ */
+
+.reviews-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 32px;
+  transition:
+    background 0.4s ease,
+    border-color 0.4s ease,
+    transform 0.4s ease;
+}
+
+.reviews-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(253, 252, 240, 0.15);
+  transform: translateY(-4px);
+}
+
+.reviews-stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.reviews-star {
+  width: 16px;
+  height: 16px;
+  color: #fdfcf0;
+}
+
+.reviews-text {
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 24px;
+  font-weight: 300;
+}
+
+.reviews-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reviews-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(253, 252, 240, 0.2), rgba(253, 252, 240, 0.05));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fdfcf0;
+}
+
+.reviews-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reviews-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fdfcf0;
+}
+
+.reviews-service {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================
+   FAQ Section
+   ============================================ */
+
+.faq-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.faq-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(253, 252, 240, 0.1);
+}
+
+.faq-trigger {
+  width: 100%;
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.faq-trigger:focus-visible {
+  outline: 1px solid rgba(253, 252, 240, 0.4);
+  outline-offset: -1px;
+}
+
+.faq-trigger span {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.9);
+  transition: color 0.3s ease;
+}
+
+.faq-item:hover .faq-trigger span {
+  color: #fdfcf0;
+}
+
+.faq-icon {
+  width: 20px;
+  height: 20px;
+  color: #fdfcf0;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.faq-content {
+  padding: 0 32px 24px 32px;
+}
+
+.faq-content p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 300;
+}
+
+/* ============================================
+   New Guests Section
+   ============================================ */
+
+.newguests-benefit {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.newguests-benefit-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #121212;
+  flex-shrink: 0;
+}
+
+.newguests-benefit-text {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.newguests-form {
+  position: relative;
+  overflow: hidden;
+}
+
+.newguests-form::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(253, 252, 240, 0.3), transparent);
+}
+
+.newguests-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  padding: 16px 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #ffffff;
+  transition: border-color 0.3s ease;
+}
+
+.newguests-input::placeholder {
+  color: rgba(255, 255, 255, 0.1);
+}
+
+.newguests-input:focus {
+  outline: none;
+  border-color: #fdfcf0;
+}
+
+.newguests-submit {
+  width: 100%;
+  padding: 16px 32px;
+  background: #fdfcf0;
+  color: #121212;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.newguests-submit:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(253, 252, 240, 0.3);
+}
+
+.newguests-submit:active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   Master Gallery Carousel
+   ============================================ */
+
+.master-gallery {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(18, 18, 18, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease;
+}
+
+.master-gallery.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gallery-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.gallery-master-name {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+}
+
+.gallery-close {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.gallery-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: rotate(90deg);
+}
+
+.gallery-close svg {
+  width: 24px;
+  height: 24px;
+  color: #ffffff;
+}
+
+.gallery-nav {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 10;
+}
+
+.gallery-nav-btn {
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.gallery-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(253, 252, 240, 0.3);
+  transform: scale(1.1);
+}
+
+.gallery-nav-btn svg {
+  width: 24px;
+  height: 24px;
+  color: #ffffff;
+}
+
+.gallery-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+}
+
+.gallery-slide {
+  flex-shrink: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 80px;
+}
+
+.gallery-slide img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+@media (min-width: 768px) {
+  .gallery-slide {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-slide {
+    width: 33.333%;
+  }
 }
 

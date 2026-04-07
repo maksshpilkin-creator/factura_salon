@@ -494,6 +494,193 @@ function initVideoInteraction() {
   });
 }
 
+// Логика FAQ-аккордеона
+function initFAQ() {
+  const faqTriggers = document.querySelectorAll('.faq-trigger');
+  
+  if (!faqTriggers.length) return;
+  
+  faqTriggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const faqItem = trigger.closest('.faq-item');
+      const content = faqItem.querySelector('.faq-content');
+      const icon = trigger.querySelector('.faq-icon');
+      const isOpen = !content.classList.contains('hidden');
+      
+      // Закрываем все остальные FAQ-элементы
+      document.querySelectorAll('.faq-item').forEach(item => {
+        const otherContent = item.querySelector('.faq-content');
+        const otherIcon = item.querySelector('.faq-icon');
+        
+        if (item !== faqItem) {
+          otherContent.classList.add('hidden');
+          otherIcon.style.transform = 'rotate(0deg)';
+        }
+      });
+      
+      // Переключаем текущий элемент
+      if (isOpen) {
+        content.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        content.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+}
+
+// Логика формы для новых гостей
+function initNewGuestForm() {
+  const form = document.getElementById('newguest-form');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('newguest-name').value;
+    const phone = document.getElementById('newguest-phone').value;
+    const service = document.getElementById('newguest-service').value;
+
+    const btnSubmit = form.querySelector('button[type="submit"]');
+    const originalText = btnSubmit.querySelector('span').textContent;
+
+    btnSubmit.disabled = true;
+    btnSubmit.querySelector('span').textContent = 'ОТПРАВКА...';
+
+    try {
+      const WEBHOOK_URL = 'https://maks1111.app.n8n.cloud/webhook-test/764e3ba2-d92d-4b23-a7de-aa8f9ed1b696';
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source: 'newguest',
+          name,
+          phone,
+          service
+        })
+      });
+
+      btnSubmit.querySelector('span').textContent = 'ЗАЯВКА ОТПРАВЛЕНА';
+      form.reset();
+      
+      setTimeout(() => {
+        btnSubmit.querySelector('span').textContent = originalText;
+      }, 3000);
+
+    } catch (error) {
+      console.error('Ошибка отправки формы нового гостя:', error);
+      btnSubmit.querySelector('span').textContent = 'ОШИБКА';
+    } finally {
+      btnSubmit.disabled = false;
+    }
+  });
+}
+
+// Логика галереи работ мастеров
+function initMasterGallery() {
+  const masterCards = document.querySelectorAll('[data-master]');
+  const gallery = document.getElementById('master-gallery');
+  const galleryTrack = document.getElementById('gallery-track');
+  const closeGalleryBtn = document.getElementById('close-gallery');
+  const prevBtn = document.getElementById('gallery-prev');
+  const nextBtn = document.getElementById('gallery-next');
+  const galleryMasterName = document.getElementById('gallery-master-name');
+
+  if (!masterCards.length || !gallery || !galleryTrack) return;
+
+  // Данные о работах мастеров (примерные данные)
+  const mastersData = {
+    alexander: {
+      name: 'Александр В.',
+      images: [
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuDUMjsDwQ9tFXQIBpR0QK-HRY6jd2hGh6p8h6tAC0WTMfs_IFbwnBwH96vKTZb8TtVwpbmNUYAw_HqgcGGmDdxVDwGyAFOxEkxMtIaMidvl5jsZirtvWOPER8XbkdNbCA6dNCu64qUXwAhzM8l7Ya0SMgbOoxn5m5RGozi1u0-3lpXoIoKtoKE0GrjkhQyt_56fl9GwPduK9bp9tf_I8ZX0kznakjYi2tLd6p5e-G81ECiePYXLpLeouV3kVrSO9u3curz4vYkWut8',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAmzGdO-A6gXB8M4Q45kC2WErEgyOWjacVjkLiBsfyQlB5HijvmB3iRRznuZyWqGoy0K3fabgFxoWZ2Gv2_6WPPM_ctwT60lo3MBulMIwjObFdYEZgaWF2Wu5u1Q5MVqWQCzXCER-o5xArJvMH8GMqjlC-SwTcovQb4ps6jxKxiXq6GEt6Yv3kTNGfB3cFSq0v9jFGMjXYWeGmLI06uD1G0w6NeqXCrcRXUUa3FSE4hB-tQd7gBrL8jxL8h8WXyFQHvMWVE-bizYwk',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuBnM2AWvm4qNt2k5096dNgP_674MAnQoTAZ3kH2cECMXc54MY3ryDW3OfMLrafb23-1Q7QnQMFRmKoyE2MkWbeUbUsPuUChKSfhSPbGfGCqxL9zVIDqB6YcnP5b3i1-6zZwp3jzWZoF2vERx8du_IiZRoj-BUB0yxphmi-l4b9Qdvb-XAIZnwMbA90xQWoCPoYOjKTfuE4Yu8JrtLfJgIOuTbiKw_7LvDAysLqZ3YsqPEWSJc8V7gzVwYCdgUI0c8kdxltT8qwT3WM'
+      ]
+    },
+    elena: {
+      name: 'Елена М.',
+      images: [
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuDUMjsDwQ9tFXQIBpR0QK-HRY6jd2hGh6p8h6tAC0WTMfs_IFbwnBwH96vKTZb8TtVwpbmNUYAw_HqgcGGmDdxVDwGyAFOxEkxMtIaMidvl5jsZirtvWOPER8XbkdNbCA6dNCu64qUXwAhzM8l7Ya0SMgbOoxn5m5RGozi1u0-3lpXoIoKtoKE0GrjkhQyt_56fl9GwPduK9bp9tf_I8ZX0kznakjYi2tLd6p5e-G81ECiePYXLpLeouV3kVrSO9u3curz4vYkWut8',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAmzGdO-A6gXB8M4Q45kC2WErEgyOWjacVjkLiBsfyQlB5HijvmB3iRRznuZyWqGoy0K3fabgFxoWZ2Gv2_6WPPM_ctwT60lo3MBulMIwjObFdYEZgaWF2Wu5u1Q5MVqWQCzXCER-o5xArJvMH8GMqjlC-SwTcovQb4ps6jxKxiXq6GEt6Yv3kTNGfB3cFSq0v9jFGMjXYWeGmLI06uD1G0w6NeqXCrcRXUUa3FSE4hB-tQd7gBrL8jxL8h8WXyFQHvMWVE-bizYwk',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuBnM2AWvm4qNt2k5096dNgP_674MAnQoTAZ3kH2cECMXc54MY3ryDW3OfMLrafb23-1Q7QnQMFRmKoyE2MkWbeUbUsPuUChKSfhSPbGfGCqxL9zVIDqB6YcnP5b3i1-6zZwp3jzWZoF2vERx8du_IiZRoj-BUB0yxphmi-l4b9Qdvb-XAIZnwMbA90xQWoCPoYOjKTfuE4Yu8JrtLfJgIOuTbiKw_7LvDAysLqZ3YsqPEWSJc8V7gzVwYCdgUI0c8kdxltT8qwT3WM'
+      ]
+    },
+    mark: {
+      name: 'Марк С.',
+      images: [
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuDUMjsDwQ9tFXQIBpR0QK-HRY6jd2hGh6p8h6tAC0WTMfs_IFbwnBwH96vKTZb8TtVwpbmNUYAw_HqgcGGmDdxVDwGyAFOxEkxMtIaMidvl5jsZirtvWOPER8XbkdNbCA6dNCu64qUXwAhzM8l7Ya0SMgbOoxn5m5RGozi1u0-3lpXoIoKtoKE0GrjkhQyt_56fl9GwPduK9bp9tf_I8ZX0kznakjYi2tLd6p5e-G81ECiePYXLpLeouV3kVrSO9u3curz4vYkWut8',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAmzGdO-A6gXB8M4Q45kC2WErEgyOWjacVjkLiBsfyQlB5HijvmB3iRRznuZyWqGoy0K3fabgFxoWZ2Gv2_6WPPM_ctwT60lo3MBulMIwjObFdYEZgaWF2Wu5u1Q5MVqWQCzXCER-o5xArJvMH8GMqjlC-SwTcovQb4ps6jxKxiXq6GEt6Yv3kTNGfB3cFSq0v9jFGMjXYWeGmLI06uD1G0w6NeqXCrcRXUUa3FSE4hB-tQd7gBrL8jxL8h8WXyFQHvMWVE-bizYwk',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuBnM2AWvm4qNt2k5096dNgP_674MAnQoTAZ3kH2cECMXc54MY3ryDW3OfMLrafb23-1Q7QnQMFRmKoyE2MkWbeUbUsPuUChKSfhSPbGfGCqxL9zVIDqB6YcnP5b3i1-6zZwp3jzWZoF2vERx8du_IiZRoj-BUB0yxphmi-l4b9Qdvb-XAIZnwMbA90xQWoCPoYOjKTfuE4Yu8JrtLfJgIOuTbiKw_7LvDAysLqZ3YsqPEWSJc8V7gzVwYCdgUI0c8kdxltT8qwT3WM'
+      ]
+    }
+  };
+
+  let currentSlide = 0;
+  let currentMaster = null;
+
+  const openGallery = (masterId) => {
+    const master = mastersData[masterId];
+    if (!master) return;
+
+    currentMaster = masterId;
+    currentSlide = 0;
+    galleryMasterName.textContent = master.name;
+
+    galleryTrack.innerHTML = master.images.map(img => `
+      <div class="flex-shrink-0 w-full md:w-1/2 lg:w-1/3">
+        <img src="${img}" alt="Работа ${master.name}" class="w-full h-[400px] object-cover rounded-custom" />
+      </div>
+    `).join('');
+
+    gallery.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeGallery = () => {
+    gallery.classList.add('hidden');
+    document.body.style.overflow = '';
+  };
+
+  const nextSlide = () => {
+    const master = mastersData[currentMaster];
+    if (!master) return;
+    currentSlide = (currentSlide + 1) % master.images.length;
+    updateGalleryPosition();
+  };
+
+  const prevSlide = () => {
+    const master = mastersData[currentMaster];
+    if (!master) return;
+    currentSlide = (currentSlide - 1 + master.images.length) % master.images.length;
+    updateGalleryPosition();
+  };
+
+  const updateGalleryPosition = () => {
+    const slideWidth = galleryTrack.firstElementChild.offsetWidth;
+    galleryTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+  };
+
+  masterCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const masterId = card.dataset.master;
+      openGallery(masterId);
+    });
+  });
+
+  closeGalleryBtn.addEventListener('click', closeGallery);
+  nextBtn.addEventListener('click', nextSlide);
+  prevBtn.addEventListener('click', prevSlide);
+
+  document.addEventListener('keydown', (e) => {
+    if (gallery.classList.contains('hidden')) return;
+    if (e.key === 'Escape') closeGallery();
+    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
   // Инициализация бургер-меню
@@ -513,6 +700,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Инициализация взаимодействия с видео
   initVideoInteraction();
+
+  // Инициализация FAQ-аккордеона
+  initFAQ();
+
+  // Инициализация формы для новых гостей
+  initNewGuestForm();
+
+  // Инициализация галереи работ мастеров
+  initMasterGallery();
 
   // --- 1. LENIS SMOOTH SCROLLING ---
   const lenis = new Lenis({
