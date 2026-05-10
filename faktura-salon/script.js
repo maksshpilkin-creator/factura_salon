@@ -1,8 +1,3 @@
-// ============================================================
-//  Webhook URL (production)
-// ============================================================
-const WEBHOOK_URL = 'https://primary-production-f7ad.up.railway.app/webhook/764e3ba2-d92d-4b23-a7de-aa8f9ed1b696';
-
 // Shared Lenis instance — assigned in DOMContentLoaded, used by service booking buttons
 let lenis;
 
@@ -13,6 +8,11 @@ function announceFormStatus(message) {
   requestAnimationFrame(() => {
     el.textContent = message;
   });
+}
+
+/** Layout / demo only: no backend. Short delay so loading → success feels natural. */
+function simulateLayoutSubmit(ms = 600) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /** RU mobile: 10 digits starting with 9 after optional +7 / 7 / 8 prefix. Returns digits only or null. */
@@ -132,7 +132,6 @@ function initMiniBookingForm() {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name  = document.getElementById('mini-name').value.trim();
     const phone = document.getElementById('mini-phone').value.trim();
 
     const phoneDigits = normalizeRussianMobile(phone);
@@ -152,31 +151,13 @@ function initMiniBookingForm() {
     if (btnLoader) btnLoader.classList.remove('hidden');
 
     try {
-      const response = await fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone: formatRussianMobileE164(phoneDigits) })
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || `Webhook error: ${response.status}`);
-      }
+      await simulateLayoutSubmit(650);
 
       btnText.textContent = 'ЗАЯВКА ПРИНЯТА';
       setFeedback('Спасибо! Заявка принята — администратор свяжется с вами в ближайшее время.', 'success');
       announceFormStatus('Заявка принята. Администратор свяжется с вами в течение 10 минут.');
       form.reset();
 
-      setTimeout(() => {
-        btnText.textContent = 'Записаться';
-      }, 3000);
-
-    } catch (error) {
-      console.error('Ошибка отправки мини-формы:', error);
-      btnText.textContent = 'ОШИБКА — ПОВТОРИТЕ';
-      setFeedback('Не удалось отправить заявку. Проверьте сеть и попробуйте снова.', 'error');
-      announceFormStatus('Ошибка отправки. Проверьте сеть и попробуйте снова.');
       setTimeout(() => {
         btnText.textContent = 'Записаться';
       }, 3000);
@@ -194,59 +175,73 @@ function initCalcContactForm() {
   const form = document.getElementById('calc-contact-form');
   if (!form) return;
 
+  const calcFormFeedback = document.getElementById('calc-form-feedback');
+  const setCalcFeedback = (message, kind) => {
+    if (!calcFormFeedback) return;
+    calcFormFeedback.textContent = message;
+    calcFormFeedback.classList.remove('hidden', 'text-white/50', 'text-red-400/90', 'text-brand');
+    if (kind === 'success') {
+      calcFormFeedback.classList.add('text-brand');
+    } else if (kind === 'error') {
+      calcFormFeedback.classList.add('text-red-400/90');
+    } else {
+      calcFormFeedback.classList.add('text-white/50');
+    }
+  };
+  const clearCalcFeedback = () => {
+    if (!calcFormFeedback) return;
+    calcFormFeedback.textContent = '';
+    calcFormFeedback.classList.add('hidden');
+    calcFormFeedback.classList.remove('text-white/50', 'text-red-400/90', 'text-brand');
+  };
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name    = document.getElementById('calc-name').value.trim();
+    clearCalcFeedback();
+
+    if (!form.reportValidity()) {
+      return;
+    }
+
     const phone   = document.getElementById('calc-phone').value.trim();
     const phoneDigits = normalizeRussianMobile(phone);
     if (!phoneDigits) {
+      setCalcFeedback('Укажите корректный мобильный номер РФ — например +7 912 345-67-89.', 'error');
       announceFormStatus('Укажите корректный мобильный номер.');
       return;
     }
-    const service = document.getElementById('calc-service')
-      ? document.getElementById('calc-service').options[document.getElementById('calc-service').selectedIndex].text
-      : '';
-    const price   = document.getElementById('calc-result')
-      ? document.getElementById('calc-result').innerText
-      : '';
 
     const btnSubmit = form.querySelector('button[type="submit"]');
-    const originalText = btnSubmit.querySelector('span').textContent;
+    const btnSpan   = btnSubmit ? btnSubmit.querySelector('span') : null;
+    if (!btnSubmit || !btnSpan) {
+      console.error('initCalcContactForm: missing submit button or label');
+      return;
+    }
+    const originalText = btnSpan.textContent;
 
     btnSubmit.disabled = true;
-    btnSubmit.querySelector('span').textContent = 'ОТПРАВКА...';
+    btnSpan.textContent = 'ОТПРАВКА...';
 
     try {
-      const payload = new URLSearchParams({
-        source: 'calculator',
-        name,
-        phone: formatRussianMobileE164(phoneDigits),
-        service,
-        estimated_price: price
-      });
+      await simulateLayoutSubmit(600);
 
-      const response = await fetch(WEBHOOK_URL, { method: 'POST', body: payload });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || `Webhook error: ${response.status}`);
-      }
-
-      btnSubmit.querySelector('span').textContent = 'ЦЕНА ЗАФИКСИРОВАНА';
+      btnSpan.textContent = 'ЦЕНА ЗАФИКСИРОВАНА';
+      setCalcFeedback('Заявка с расчётом отправлена. Мы свяжемся с вами.', 'success');
       announceFormStatus('Заявка с расчётом цены отправлена. Мы свяжемся с вами.');
       form.reset();
 
       setTimeout(() => {
-        btnSubmit.querySelector('span').textContent = originalText;
+        btnSpan.textContent = originalText;
+        clearCalcFeedback();
       }, 3000);
-
     } catch (error) {
       console.error('Ошибка отправки формы калькулятора:', error);
-      btnSubmit.querySelector('span').textContent = 'ОШИБКА — ПОВТОРИТЕ';
+      setCalcFeedback('Не удалось завершить отправку. Попробуйте ещё раз.', 'error');
       announceFormStatus('Ошибка отправки. Проверьте сеть и попробуйте снова.');
       setTimeout(() => {
-        btnSubmit.querySelector('span').textContent = originalText;
+        btnSpan.textContent = originalText;
+        clearCalcFeedback();
       }, 3000);
     } finally {
       btnSubmit.disabled = false;
@@ -264,6 +259,25 @@ function initQuiz() {
   const progressBar = document.getElementById('quiz-progress-bar');
   const stepCounter = document.getElementById('quiz-step-counter');
   const leadForm = document.getElementById('quiz-lead-form');
+  const quizFormFeedback = document.getElementById('quiz-form-feedback');
+  const setQuizFeedback = (message, kind) => {
+    if (!quizFormFeedback) return;
+    quizFormFeedback.textContent = message;
+    quizFormFeedback.classList.remove('hidden', 'text-matte', 'text-red-600', 'text-matte/70');
+    if (kind === 'success') {
+      quizFormFeedback.classList.add('text-matte/70');
+    } else if (kind === 'error') {
+      quizFormFeedback.classList.add('text-red-600');
+    } else {
+      quizFormFeedback.classList.add('text-matte');
+    }
+  };
+  const clearQuizFeedback = () => {
+    if (!quizFormFeedback) return;
+    quizFormFeedback.textContent = '';
+    quizFormFeedback.classList.add('hidden');
+    quizFormFeedback.classList.remove('text-matte', 'text-red-600', 'text-matte/70');
+  };
 
   if (!steps.length) return;
 
@@ -397,10 +411,17 @@ function initQuiz() {
     leadForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      clearQuizFeedback();
+
+      if (!leadForm.reportValidity()) {
+        return;
+      }
+
       answers.name = document.getElementById('quiz-name').value.trim();
       const rawPhone = document.getElementById('quiz-phone').value.trim();
       const phoneDigits = normalizeRussianMobile(rawPhone);
       if (!phoneDigits) {
+        setQuizFeedback('Укажите корректный мобильный номер РФ — например +7 912 345-67-89.', 'error');
         announceFormStatus('Укажите корректный мобильный номер.');
         return;
       }
@@ -410,38 +431,40 @@ function initQuiz() {
       const btnText   = document.getElementById('quiz-btn-text');
       const btnLoader = document.getElementById('quiz-btn-loader');
 
+      if (!submitBtn || !btnText || !btnLoader) {
+        console.error('initQuiz: missing submit button or label nodes');
+        return;
+      }
+
       submitBtn.disabled = true;
       btnText.textContent = 'Отправка...';
       btnLoader.classList.remove('hidden');
 
+      let submitSucceeded = false;
       try {
-        const payload = new URLSearchParams();
-        payload.set('source', 'quiz');
-        Object.entries(answers).forEach(([key, value]) => {
-          if (value != null) payload.set(key, value);
-        });
-
-        const response = await fetch(WEBHOOK_URL, { method: 'POST', body: payload });
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(errorText || `Webhook error: ${response.status}`);
-        }
-
-        await new Promise(resolve => setTimeout(resolve, 800));
+        await simulateLayoutSubmit(800);
 
         generateResult();
         currentStep++;
         updateUI();
+        clearQuizFeedback();
         announceFormStatus('Рекомендация по квизу отправлена. Администратор свяжется с вами.');
-
+        submitSucceeded = true;
       } catch (error) {
         console.error('Ошибка отправки формы:', error);
+        setQuizFeedback('Не удалось завершить отправку. Попробуйте ещё раз.', 'error');
         announceFormStatus('Ошибка отправки заявки. Пожалуйста, попробуйте ещё раз.');
       } finally {
-        submitBtn.disabled = false;
-        btnText.textContent = 'Получить рекомендацию';
         btnLoader.classList.add('hidden');
+        if (submitSucceeded) {
+          btnText.textContent = 'Отправлено';
+          submitBtn.disabled = true;
+          submitBtn.title = 'Отправлено';
+        } else {
+          btnText.textContent = 'Получить рекомендацию';
+          submitBtn.disabled = false;
+          submitBtn.title = 'Получить рекомендацию';
+        }
       }
     });
   }
@@ -772,57 +795,73 @@ function initNewGuestForm() {
   const form = document.getElementById('newguest-form');
   if (!form) return;
 
+  const newGuestFormFeedback = document.getElementById('newguest-form-feedback');
+  const setNewGuestFeedback = (message, kind) => {
+    if (!newGuestFormFeedback) return;
+    newGuestFormFeedback.textContent = message;
+    newGuestFormFeedback.classList.remove('hidden', 'text-white/50', 'text-red-400/90', 'text-brand');
+    if (kind === 'success') {
+      newGuestFormFeedback.classList.add('text-brand');
+    } else if (kind === 'error') {
+      newGuestFormFeedback.classList.add('text-red-400/90');
+    } else {
+      newGuestFormFeedback.classList.add('text-white/50');
+    }
+  };
+  const clearNewGuestFeedback = () => {
+    if (!newGuestFormFeedback) return;
+    newGuestFormFeedback.textContent = '';
+    newGuestFormFeedback.classList.add('hidden');
+    newGuestFormFeedback.classList.remove('text-white/50', 'text-red-400/90', 'text-brand');
+  };
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name     = document.getElementById('newguest-name').value.trim();
+    clearNewGuestFeedback();
+
+    if (!form.reportValidity()) {
+      return;
+    }
+
     const phone    = document.getElementById('newguest-phone').value.trim();
     const phoneDigits = normalizeRussianMobile(phone);
     if (!phoneDigits) {
+      setNewGuestFeedback('Укажите корректный мобильный номер РФ — например +7 912 345-67-89.', 'error');
       announceFormStatus('Укажите корректный мобильный номер.');
       return;
     }
-    const service  = document.getElementById('newguest-service').value;
-    const timePart = document.getElementById('newguest-time-part').value;
-    const day      = document.getElementById('newguest-day').value;
 
-    const btnSubmit    = form.querySelector('button[type="submit"]');
-    const originalText = btnSubmit.querySelector('span').textContent;
+    const btnSubmit = form.querySelector('button[type="submit"]');
+    const btnSpan   = btnSubmit ? btnSubmit.querySelector('span') : null;
+    if (!btnSubmit || !btnSpan) {
+      console.error('initNewGuestForm: missing submit button or label');
+      return;
+    }
+    const originalText = btnSpan.textContent;
 
     btnSubmit.disabled = true;
-    btnSubmit.querySelector('span').textContent = 'ОТПРАВКА...';
+    btnSpan.textContent = 'ОТПРАВКА...';
 
     try {
-      const payload = new URLSearchParams({
-        source: 'newguest',
-        name,
-        phone: formatRussianMobileE164(phoneDigits),
-        service,
-        time_part: timePart,
-        day
-      });
+      await simulateLayoutSubmit(600);
 
-      const response = await fetch(WEBHOOK_URL, { method: 'POST', body: payload });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || `Webhook error: ${response.status}`);
-      }
-
-      btnSubmit.querySelector('span').textContent = 'ЗАЯВКА ОТПРАВЛЕНА';
+      btnSpan.textContent = 'ЗАЯВКА ОТПРАВЛЕНА';
+      setNewGuestFeedback('Заявка на скидку отправлена. Мы свяжемся с вами.', 'success');
       announceFormStatus('Заявка на скидку для новых гостей отправлена. Мы свяжемся с вами.');
       form.reset();
 
       setTimeout(() => {
-        btnSubmit.querySelector('span').textContent = originalText;
+        btnSpan.textContent = originalText;
+        clearNewGuestFeedback();
       }, 3000);
-
     } catch (error) {
       console.error('Ошибка отправки формы нового гостя:', error);
-      btnSubmit.querySelector('span').textContent = 'ОШИБКА';
+      setNewGuestFeedback('Не удалось завершить отправку. Попробуйте ещё раз.', 'error');
       announceFormStatus('Ошибка отправки. Проверьте сеть и попробуйте снова.');
       setTimeout(() => {
-        btnSubmit.querySelector('span').textContent = originalText;
+        btnSpan.textContent = originalText;
+        clearNewGuestFeedback();
       }, 3000);
     } finally {
       btnSubmit.disabled = false;

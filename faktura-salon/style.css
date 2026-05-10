@@ -929,6 +929,13 @@ nav button:focus-visible,
   outline-offset: 3px;
 }
 
+/* Desktop: hide burger (Tailwind `lg:hidden` may be absent from built CSS; `.burger-btn` uses display:flex) */
+@media (min-width: 1024px) {
+  #burger-btn.burger-btn {
+    display: none;
+  }
+}
+
 .burger-line {
   display: block;
   width: 18px;
