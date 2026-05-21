@@ -1563,6 +1563,16 @@ body.menu-open {
   background-position: center;
 }
 
+.philosophy-video-hint {
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: clamp(0.75rem, 2.6vw, 0.875rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.6;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.75);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal-header,
   .reveal-item {

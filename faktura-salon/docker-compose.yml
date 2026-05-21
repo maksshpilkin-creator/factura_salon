@@ -1,0 +1,51 @@
+services:
+  traefik:
+    image: traefik:v3.0
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yml:/traefik.yml:ro
+      - letsencrypt:/letsencrypt
+    command:
+      - --configFile=/traefik.yml
+    networks:
+      - web
+    healthcheck:
+      test: ["CMD", "traefik", "version"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  front:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:80"
+    networks:
+      - web
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=faktura_traefik_web
+      - traefik.http.services.front.loadbalancer.server.port=80
+      - traefik.http.routers.front-secure.rule=Host(`factura-salon.vercel.app`)
+      - traefik.http.routers.front-secure.entrypoints=websecure
+      - traefik.http.routers.front-secure.tls.certresolver=letsencrypt
+      - traefik.http.routers.front-secure.service=front
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  web:
+    name: faktura_traefik_web
+    driver: bridge
+
+volumes:
+  letsencrypt:

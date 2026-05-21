@@ -1,0 +1,14 @@
+node_modules
+.git
+.cursor
+.vscode
+dist
+*.md
+scripts
+skills3bytrae
+workers
+GEMINI.md
+plan_to_update*.md
+updates.txt
+.hintrc
+.cursorrules
